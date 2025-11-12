@@ -1,0 +1,6 @@
+# git ignore
+.DS_Store
+
+# 각종 문서파일
+.dox
+.pptx
