@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>내 폼으로 데이터 서버 전송하기</h1>
+        <h2>가로 입력 로그인 폼</h2>
+        <form>
+            <label>ID</label>
+            <input type="text" name="id" placeholder="아이디를 입력해주세요">
+            <!-- name은 서버로 전송할때의 key 사용자가 입력한 값 value-->
+            <label>password</label>
+            <input type="password" name="pw" placeholder="비밀번호를 입력해주세요">
+            <!-- submit 타입은 실제로 이 form에 입려고딘 모든 값을 다 합쳐서 서버로 보내는 기능 -->
+            <input type="submit" value="login">
+        </form>
+        <h2>세로 입력 로그인 폼</h2>
+        <!-- 전송방식을 내가 지정하지 않으면 기본값은 GET방식 -->
+        <form method="post">
+            <label>ID</label>
+            <input type="text" name="id">
+            <br>
+            <label>password</label>
+            <input type="password" name="pw">
+            <br>
+            <input type="submit" value="login">
+        </form>
+        <h2>네이버 따라하기</h2>
+        <form method="get">
+            <label for="">검색</label>
+            <input type="text" name="query" placeholder="키워드를 입력해주세요">
+            <input type="submit">검색
+        </form>
+    </body>
+</html>
