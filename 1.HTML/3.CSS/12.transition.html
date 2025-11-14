@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .square {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            transition-property: width, height; /* 어디에 변화줄지 정의 */
+            transition-duration: 1s;
+
+        }
+        .square:hover {
+            width: 250px;
+            height: 150px;
+        }
+        .button {
+            color: black;
+            transition-property: color;
+            transition-duration: 1s;
+        }
+        .button:hover {
+            color: red;
+        }
+        .image {
+            width: 200px;
+            transition-property: transform;
+            transition-duration: 1s;
+        }
+        .image:hover {
+            transform: rotate(180deg);
+            /* transform: rotate(180deg) translateX(100px) translateY(100px); */
+        }
+    </style>
+</head>
+<body>
+    <div class="square"></div>
+    <hr>
+    <button class="button">Hover me</button>
+    <hr>
+    <img class="image" src="Profile/images/spongeBob.png" alt="spongeBob">
+</body>
+</html>
