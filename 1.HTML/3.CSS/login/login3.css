@@ -1,0 +1,91 @@
+html {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+html:hover #loginContainer form {
+    opacity: 1;
+}
+
+#loginContainer form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+#loginContainer form h1 {
+    margin-bottom: 16px;
+    font-size: 25px;
+}
+
+#loginContainer input {
+    height: 40px;
+    width: 300px;
+    margin-top: 12px;
+    text-indent: 8px;
+}
+
+#backgroundDesignContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    transform: translate(-50%, -50%) rotate(45deg);
+    height: 500%;
+    width: 500%;
+}
+
+#backgroundDesign1 {
+    background-color: #1962f4a0;
+    transition: transform 0.4s ease-in-out;
+    grid-column: 1 /2;
+    grid-row: 1;
+    width: 200%;
+}
+
+#backgroundDesign2 {
+    background-color: #6e0e7ba0;
+    transition: transform 0.4s ease-in-out;
+    grid-column: 2;
+    grid-row: 1/2;
+    height: 200%;
+
+}
+
+#backgroundDesign3 {
+    background-color: #25d94ca0;
+    transition: transform 0.4s ease-in-out;
+    grid-column: 1 / 2;
+    grid-row: 2;
+    width: 200%;
+
+}
+
+#backgroundDesign4 {
+    background-color: #d85252a0;
+    transition: transform 0.4s ease-in-out;
+    grid-column: 1;
+    grid-row: 1 / 2;
+    height: 200%;
+
+}
+
+html:hover #backgroundDesign1 {
+    transform: translate(-200px, -200px);
+}
+html:hover #backgroundDesign2 {
+    transform: translate(200px, -200px);
+}
+html:hover #backgroundDesign3 {
+    transform: translate(200px, 200px);
+}
+html:hover #backgroundDesign4 {
+    transform: translate(-200px, 200px);
+}
