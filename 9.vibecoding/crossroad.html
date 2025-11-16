@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>길건너 친구들</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #333;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        canvas {
+            background-color: #000;
+            border: 2px solid white;
+        }
+
+        h1,
+        p {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>길건너 친구들</h1>
+    <p>화살표 키로 움직이세요! 물에 빠지거나 차에 치이지 마세요.</p>
+    <canvas id="gameCanvas" width="400" height="600"></canvas>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const TILE_SIZE = 40;
+        const GRID_WIDTH = canvas.width / TILE_SIZE;
+        const GRID_HEIGHT = canvas.height / TILE_SIZE;
+
+        let player;
+        let lanes = [];
+        let score = 0;
+        let highScore = 0;
+        let gameState = 'playing'; // 'playing' or 'gameOver'
+
+        // 플레이어 클래스
+        class Player {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.color = 'yellow';
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x * TILE_SIZE, this.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+            }
+
+            move(dx, dy) {
+                if (gameState !== 'playing') return;
+
+                const newX = this.x + dx;
+                const newY = this.y + dy;
+
+                if (newX >= 0 && newX < GRID_WIDTH && newY >= 0 && newY < GRID_HEIGHT) {
+                    this.x = newX;
+                    this.y = newY;
+                    if (dy < 0) { // 위로 움직일 때만 점수 증가
+                        score = Math.max(score, GRID_HEIGHT - 1 - this.y);
+                    }
+                }
+            }
+        }
+
+        // 장애물 클래스
+        class Obstacle {
+            constructor(x, y, width, speed, type) {
+                this.x = x;
+                this.y = y;
+                this.width = width;
+                this.speed = speed;
+                this.type = type; // 'car' or 'log'
+                this.color = type === 'car' ? 'red' : '#8B4513';
+            }
+
+            update() {
+                this.x += this.speed;
+                // 화면 밖으로 나가면 반대편에서 나타나도록 처리
+                if (this.speed > 0 && this.x > canvas.width) {
+                    this.x = -this.width;
+                } else if (this.speed < 0 && this.x + this.width < 0) {
+                    this.x = canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y * TILE_SIZE, this.width, TILE_SIZE);
+            }
+        }
+
+        // 레인(차선, 강 등) 생성 함수
+        function createLanes() {
+            lanes = [];
+            // 시작점 (안전 지대)
+            lanes.push({ type: 'grass', obstacles: [] });
+
+            for (let i = 1; i < GRID_HEIGHT - 1; i++) {
+                const type = Math.random() < 0.5 ? 'road' : 'water';
+                const speed = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
+                const obstacles = [];
+
+                if (type !== 'grass') {
+                    const obstacleType = type === 'road' ? 'car' : 'log';
+                    const obstacleWidth = (obstacleType === 'car' ? 2 : 3) * TILE_SIZE;
+                    let currentX = Math.random() * canvas.width;
+
+                    for (let j = 0; j < 3; j++) {
+                        obstacles.push(new Obstacle(currentX, i, obstacleWidth, speed, obstacleType));
+                        currentX += obstacleWidth + (Math.random() * 100 + 100);
+                    }
+                }
+                lanes.push({ type, obstacles });
+            }
+            // 도착점 (안전 지대)
+            lanes.push({ type: 'grass', obstacles: [] });
+        }
+
+        function resetGame() {
+            player = new Player(Math.floor(GRID_WIDTH / 2), GRID_HEIGHT - 1);
+            score = 0;
+            createLanes();
+            gameState = 'playing';
+        }
+
+        function checkCollisions() {
+            const currentLane = lanes[player.y];
+            const playerPixelX = player.x * TILE_SIZE;
+
+            if (currentLane.type === 'road') {
+                for (const car of currentLane.obstacles) {
+                    if (playerPixelX < car.x + car.width && playerPixelX + TILE_SIZE > car.x) {
+                        gameState = 'gameOver';
+                    }
+                }
+            } else if (currentLane.type === 'water') {
+                let onLog = false;
+                for (const log of currentLane.obstacles) {
+                    if (playerPixelX < log.x + log.width && playerPixelX + TILE_SIZE > log.x) {
+                        onLog = true;
+                        // 통나무와 함께 플레이어 이동
+                        player.x = (playerPixelX + log.speed) / TILE_SIZE;
+                        if (player.x * TILE_SIZE < 0 || player.x * TILE_SIZE > canvas.width) {
+                            gameState = 'gameOver';
+                        }
+                    }
+                }
+                if (!onLog) {
+                    gameState = 'gameOver';
+                }
+            }
+        }
+
+        function draw() {
+            // 배경 그리기
+            lanes.forEach((lane, y) => {
+                if (lane.type === 'grass') ctx.fillStyle = '#2ecc71'; // 잔디
+                else if (lane.type === 'road') ctx.fillStyle = '#7f8c8d'; // 도로
+                else if (lane.type === 'water') ctx.fillStyle = '#3498db'; // 물
+                ctx.fillRect(0, y * TILE_SIZE, canvas.width, TILE_SIZE);
+            });
+
+            // 장애물 그리기 및 업데이트
+            lanes.forEach(lane => {
+                lane.obstacles.forEach(obstacle => {
+                    obstacle.update();
+                    obstacle.draw();
+                });
+            });
+
+            // 플레이어 그리기
+            player.draw();
+
+            // 점수 표시
+            ctx.fillStyle = 'white';
+            ctx.font = '24px Arial';
+            ctx.fillText(`Score: ${score}`, 10, 30);
+            ctx.fillText(`High Score: ${highScore}`, canvas.width - 150, 30);
+        }
+
+        function gameOver() {
+            highScore = Math.max(highScore, score);
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = 'white';
+            ctx.font = '40px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2 - 40);
+
+            ctx.font = '20px Arial';
+            ctx.fillText(`Your Score: ${score}`, canvas.width / 2, canvas.height / 2);
+            ctx.fillText('Press Enter to Restart', canvas.width / 2, canvas.height / 2 + 40);
+            ctx.textAlign = 'left'; // 정렬 초기화
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (gameState === 'playing') {
+                checkCollisions();
+                draw();
+            } else if (gameState === 'gameOver') {
+                draw(); // 마지막 프레임을 그리고
+                gameOver(); // 게임 오버 화면을 덧그림
+            }
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        window.addEventListener('keydown', (e) => {
+            switch (e.key) {
+                case 'ArrowUp': player.move(0, -1); break;
+                case 'ArrowDown': player.move(0, 1); break;
+                case 'ArrowLeft': player.move(-1, 0); break;
+                case 'ArrowRight': player.move(1, 0); break;
+                case 'Enter':
+                    if (gameState === 'gameOver') {
+                        resetGame();
+                    }
+                    break;
+            }
+        });
+
+        // 게임 시작
+        resetGame();
+        gameLoop();
+    </script>
+</body>
+
+</html>
