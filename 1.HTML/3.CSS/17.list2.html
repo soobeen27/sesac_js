@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .styledul {
+            list-style-type: square;
+        }
+
+        .styledol {
+            list-style-type: upper-roman;
+        }
+
+        .customul {
+            list-style-type: none;
+        }
+
+        .customul li::before {
+            content: "v";
+            color: green;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>리스트 속성들 다양한 실험</h1>
+    <h2>unorderd list</h2>
+    <ul class="styledul">
+        <li>첫번째 항목</li>
+        <li>두번째 항목</li>
+        <li>세번째 항목</li>
+    </ul>
+    <h2>orderedlist</h2>
+    <ol class="styledol">
+        <li>첫번째 항목</li>
+        <li>두번째 항목</li>
+        <li>세번째 항목</li>
+    </ol>
+    <h2>custom list</h2>
+    <ul class="customul">
+        <li>첫번째 항목</li>
+        <li>두번째 항목</li>
+        <li>세번째 항목</li>
+    </ul>
+</body>
+
+</html>
