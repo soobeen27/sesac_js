@@ -12,13 +12,16 @@
         <div id="result"></div>
         <script>
             function gugudan() {
-                let dan = document.getElementById("userInput");
-                let danInput = dan.value;
+                let dan = document.getElementById("userInput").value;
                 let result = document.getElementById("result");
+                if (dan === "") {
+                    console.log("no input");
+                    result.innerHTML = "단을 입력하세요";
+                    return;
+                }
                 result.innerHTML = "";
                 for (let i = 1; i <= 9; i++) {
-                    result.innerHTML +=
-                        danInput + "x" + i + "=" + danInput * i + "<br>";
+                    result.innerHTML += dan + "x" + i + "=" + dan * i + "<br>";
                 }
             }
         </script>
