@@ -1,5 +1,3 @@
-let rgb = "";
-
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
@@ -52,6 +50,4 @@ function changeBGColorRandom() {
     console.log(rgb);
     document.body.style.backgroundColor = rgb;
     document.getElementById("rgbSpan").textContent = rgb;
-    setDarkerElementsBG();
-    setDarkerFont();
 }
