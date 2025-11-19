@@ -11,10 +11,20 @@ function getRandomRGB() {
 }
 
 function darkerColor(rgb, level) {
-    return `rgb(${rgb
-        .match(/\d+/g)
+    let rgbNums = rgb.match(/\d+/g);
+    let sum = 0;
+    rgbNums.forEach((num) => {
+        sum += parseInt(num);
+    });
+    return `rgb(${rgbNums
         .map((strNum) => {
-            return strNum - level > 0 ? strNum - level : 0;
+            if (sum <= 150) {
+                return parseInt(strNum) + level <= 255
+                    ? parseInt(strNum) + level
+                    : 255;
+            } else {
+                return strNum - level > 0 ? strNum - level : 0;
+            }
         })
         .join(", ")})`;
 }
@@ -37,11 +47,9 @@ function setDarkerFont() {
     });
 }
 
-// 다 하고 알았는데 굳이 어두운 rgb안만들고 그냥 background-color랑 color 어느정도 어두운색하고
-// 투명도 주면 되는거 아닌가..?
-
 function changeBGColorRandom() {
     rgb = getRandomRGB();
+    console.log(rgb);
     document.body.style.backgroundColor = rgb;
     document.getElementById("rgbSpan").textContent = rgb;
     setDarkerElementsBG();
