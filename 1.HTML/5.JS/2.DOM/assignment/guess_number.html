@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Guess the Number</title>
+    </head>
+    <body>
+        <h1>Guess the Number (1~100)</h1>
+        <input type="number" id="inputNum" placeholder="Enter your guess" />
+        <button onclick="guess()">Guess</button>
+        <h2>Guess History</h2>
+        <ol id="guessHistory"></ol>
+        <button style="display: none" onclick="newGame()" id="newGameButton">
+            new game
+        </button>
+        <script src="guess_number.js"></script>
+    </body>
+</html>
