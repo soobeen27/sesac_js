@@ -11,7 +11,7 @@ function guess() {
         return;
     }
     let compareStatus = compareWithRandomNum(input.value);
-    writeGuessHistory(CompareStatusMessages[compareStatus]);
+    writeGuessHistory(compareStatus);
     input.value = "";
     isCorrect(compareStatus);
 }
@@ -37,9 +37,9 @@ function getRandomInt(max) {
 function initGuessHistory() {
     guessHistoryOl.innerHTML = "";
 }
-function writeGuessHistory(message) {
+function writeGuessHistory(status) {
     const newGuessHistoryLi = document.createElement("li");
-    newGuessHistoryLi.textContent = `You guessed ${input.value}: ${message}`;
+    newGuessHistoryLi.textContent = `You guessed ${input.value}: ${CompareStatusMessages[status]}`;
     guessHistoryOl.appendChild(newGuessHistoryLi);
 }
 
