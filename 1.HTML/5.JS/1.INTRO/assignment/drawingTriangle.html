@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>drawing triangle</h1>
+        <script>
+            function drawTriangle(height, direction) {
+                switch (direction) {
+                    case "left":
+                        drawLeft(height);
+                        break;
+                    case "right":
+                        drawRight(height);
+                        break;
+                    case "downLeft":
+                        drawDownLeft(height);
+                        break;
+                    case "downRight":
+                        drawDownRight(height);
+                        break;
+                    default:
+                        drawLeft(height);
+                        break;
+                }
+            }
+            function drawLeft(height) {
+                for (let i = 0; i < height; i++) {
+                    console.log("*".repeat(i + 1));
+                }
+            }
+            function drawRight(height) {
+                for (let i = 0; i < height; i++) {
+                    let star = "*".repeat(i + 1);
+                    let blank = " ".repeat(height - i);
+                    console.log(blank + star);
+                }
+            }
+            function drawDownLeft(height) {
+                for (let i = 0; i < height; i++) {
+                    let star = "*".repeat(height - i);
+                    let blank = " ".repeat(i);
+                    console.log(star + blank);
+                }
+            }
+
+            function drawDownRight(height) {
+                for (let i = 0; i < height; i++) {
+                    let star = "*".repeat(height - i);
+                    let blank = " ".repeat(i);
+                    console.log(blank + star);
+                }
+            }
+        </script>
+    </body>
+</html>

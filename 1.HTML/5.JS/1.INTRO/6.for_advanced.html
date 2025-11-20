@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>for 문법</h1>
+        <script>
+            // 기본 - 반복횟수 명확할때
+            for (let i = 0; i < 5; i++) {
+                console.log(i);
+            }
+            // 기본으로 배열 순회하기
+            let fruits = ["apple", "banana", "cherry"];
+            for (let i = 0; i <= fruits.length; i++) {
+                console.log(fruits[i]);
+            }
+
+            // iteration, iterate 배열 반복 순회
+            // modern js style
+
+            // of = value
+            for (let fruit of fruits) {
+                console.log(fruits);
+            }
+
+            // in = key
+            for (let i in fruits) {
+                console.log(fruits[i]);
+            }
+
+            let person = {
+                name: "홍길동",
+                age: 19,
+                city: "서울",
+            };
+
+            for (let key in person) {
+                console.log(key, ": ", person[key]);
+            }
+
+            // more modern js style
+            // 고차 함수 (High order function)
+            let nums = [1, 2, 3, 4, 5];
+
+            nums.forEach(function (num, index) {
+                console.log("Index: " + index + ", Value: " + num);
+            });
+
+            fruits.forEach((fruit, index) => {
+                console.log("Index: " + index + ", Value: " + fruit);
+            });
+        </script>
+    </body>
+</html>

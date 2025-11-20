@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            table {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            td {
+                border: 1px solid black;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>table DOM에서 제어해보기</h1>
+        <table>
+            <tr>
+                <td>cell1</td>
+                <td>cell2</td>
+                <td>cell3</td>
+            </tr>
+            <tr>
+                <td>cell4</td>
+                <td>cell5</td>
+                <td>cell6</td>
+            </tr>
+            <tr>
+                <td>cell7</td>
+                <td>cell8</td>
+                <td>cell9</td>
+            </tr>
+        </table>
+        <button onclick="changeCellColor()">셀 색상 모두 변경</button>
+        <button onclick="evenCellColor()">짝수셀 색상 모두 변경(초록)</button>
+        <button onclick="oddCellColor()">홀수셀 색상 모두 변경(주황)</button>
+        <script>
+            let cells = document.getElementsByTagName("td");
+            function changeCellColor() {
+                // Array.from(cells).forEach(
+                //     (el) => (el.style.backgroundColor = "blue")
+                // );
+
+                // for (let i = 0; i < cells.length; i++) {
+                //     cells[i].style.backgroundColor = "lightblue";
+                // }
+
+                for (let el of cells) {
+                    el.style.backgroundColor = "lightblue";
+                }
+            }
+
+            function oddCellColor() {
+                // for (let i = 0; i < cells.length; i++) {
+                //     if ((i + 1) % 2 !== 0) {
+                //         cells[i].style.backgroundColor = "orange";
+                //     }
+                // }
+
+                Array.from(cells).forEach((el, index) => {
+                    if ((index + 1) % 2 !== 0) {
+                        el.style.backgroundColor = "orange";
+                    }
+                });
+            }
+            function evenCellColor() {
+                // for (let i = 0; i < cells.length; i++) {
+                //     if ((i + 1) % 2 === 0) {
+                //         cells[i].style.backgroundColor = "green";
+                //     }
+                // }
+                Array.from(cells).forEach((el, index) => {
+                    if ((index + 1) % 2 === 0) {
+                        el.style.backgroundColor = "green";
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>

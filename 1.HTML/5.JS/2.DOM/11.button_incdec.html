@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>버튼을 통한 숫자 제어</h1>
+        <div id="num">0</div>
+        <div>
+            <button onclick="inc()">+1</button>
+            <button onclick="dec()">-1</button>
+        </div>
+        <script>
+            let num = document.getElementById("num");
+            function inc() {
+                num.textContent = parseInt(num.textContent) + 1;
+            }
+            function dec() {
+                num.textContent = parseInt(num.textContent) - 1;
+            }
+        </script>
+    </body>
+</html>
