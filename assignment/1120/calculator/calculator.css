@@ -1,0 +1,41 @@
+HTML,
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    display: none;
+}
+
+#calc-screen {
+    display: flex;
+    width: 300px;
+    height: 40px;
+    border: 1px solid gray;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    text-indent: 8px;
+    align-items: center;
+}
+
+#btn-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 300px;
+    gap: 8px;
+}
+
+#btn-container .calc-btn {
+    height: 40px;
+}
