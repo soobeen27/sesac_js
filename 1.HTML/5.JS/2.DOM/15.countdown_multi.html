@@ -9,9 +9,11 @@
         <h1>countdown timer</h1>
         <input id="seconds" type="number" placeholder="초 입력" />
         <button onclick="start()">시작</button>
+        <button onclick="reset()">초기화</button>
         <div id="display"></div>
         <script>
             const display = document.getElementById("display");
+            let timer = [];
             function start() {
                 let seconds = parseInt(
                     document.getElementById("seconds").value
@@ -19,14 +21,21 @@
                 const timerElement = document.createElement("p");
                 timerElement.textContent = `${seconds}초 남았습니다.`;
                 display.appendChild(timerElement);
-                let timer = setInterval(() => {
-                    seconds--;
-                    timerElement.textContent = `${seconds}초 남았습니다.`;
-                    if (seconds <= 0) {
-                        timerElement.textContent = `끝`;
-                        clearInterval(timer);
-                    }
-                }, 1000);
+                timer.push(
+                    setInterval(() => {
+                        seconds--;
+                        timerElement.textContent = `${seconds}초 남았습니다.`;
+                        if (seconds <= 0) {
+                            timerElement.textContent = `끝`;
+                            clearInterval(timer);
+                        }
+                    }, 1000)
+                );
+            }
+            function reset() {
+                timer.forEach((t) => clearInterval(t));
+                timer = [];
+                display.innerHTML = "";
             }
         </script>
     </body>
