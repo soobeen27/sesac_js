@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>countdown timer</h1>
+        <input id="seconds" type="number" placeholder="초 입력" />
+        <button onclick="start()">시작</button>
+        <div id="display"></div>
+        <script>
+            const display = document.getElementById("display");
+            function start() {
+                let seconds = parseInt(
+                    document.getElementById("seconds").value
+                );
+                const timerElement = document.createElement("p");
+                timerElement.textContent = `${seconds}초 남았습니다.`;
+                display.appendChild(timerElement);
+                let timer = setInterval(() => {
+                    seconds--;
+                    timerElement.textContent = `${seconds}초 남았습니다.`;
+                    if (seconds <= 0) {
+                        timerElement.textContent = `끝`;
+                        clearInterval(timer);
+                    }
+                }, 1000);
+            }
+        </script>
+    </body>
+</html>

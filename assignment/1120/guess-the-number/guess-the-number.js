@@ -1,4 +1,4 @@
-let randomNumber = getRandomInt(101);
+let randomNumber = getRandomInt(1, 100);
 const guessHistoryOl = document.getElementById("guessHistory");
 const input = document.getElementById("inputNum");
 const newGameButton = document.getElementById("newGameButton");

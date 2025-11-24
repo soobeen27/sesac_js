@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            input {
+                width: 150px;
+            }
+            #progressBar {
+                width: 100%;
+                background-color: #f3f3f3;
+            }
+            #progress {
+                width: 0px;
+                height: 30px;
+                background-color: green;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>progress bar timer</h1>
+        <input
+            id="inputNum"
+            type="number"
+            placeholder="초를 입력하세요"
+            min="2"
+        />
+        <button id="startButton" onclick="start()">시작</button>
+        <button id="resetButton" onclick="end()">초기화</button>
+        <div id="progressBar">
+            <div id="progress"></div>
+        </div>
+        <script>
+            const progress = document.getElementById("progress");
+            const startBtn = document.getElementById("startButton");
+            let timer;
+
+            function start() {
+                startBtn.disabled = true;
+                let current = 0;
+                const sec = document.getElementById("inputNum").value;
+                timer = setInterval(() => {
+                    let percent = 100 / sec;
+                    current += percent;
+                    if (current >= 100) {
+                        clearInterval(timer);
+                        startBtn.disabled = false;
+                    }
+                    progress.style.width = `${current}%`;
+                }, 1000);
+            }
+            function end() {
+                clearInterval(timer);
+                progress.style.width = "0%";
+                startBtn.disabled = false;
+            }
+        </script>
+    </body>
+</html>
