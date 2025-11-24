@@ -24,14 +24,14 @@ function isCorrect(compareStatus) {
 }
 
 function newGame() {
-    randomNumber = getRandomInt(101);
+    randomNumber = getRandomInt(1, 100);
     guessHistoryOl.innerHTML = "";
     newGameButton.style.display = "none";
     input.value = "";
 }
 
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * max) + min;
 }
 
 function initGuessHistory() {
