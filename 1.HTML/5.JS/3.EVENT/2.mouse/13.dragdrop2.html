@@ -5,6 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
         <style>
+            #container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                width: 420px;
+                gap: 20px;
+            }
             #dragItem {
                 width: 100px;
                 height: 100px;
@@ -20,7 +27,7 @@
                 position: absolute;
                 color: #999;
             }
-            .container {
+            .zone {
                 width: 200px;
                 height: 200px;
                 background-color: wheat;
@@ -29,26 +36,32 @@
                 align-items: center;
                 justify-content: center;
                 position: relative;
-                margin-bottom: 20px;
             }
         </style>
     </head>
     <body>
         <h1>drag&drop2</h1>
-        <div id="startZone" class="container">
-            <span class="placeholder" id="startPlaceholder">Drop here</span>
-            <div id="dragItem" draggable="true">drag me</div>
-        </div>
-        <div id="dropZone" class="container">
-            <span class="placeholder" id="dropPlaceholder">drop here</span>
+        <div id="container">
+            <div class="zone">
+                <span class="placeholder">Drop here</span>
+                <div id="dragItem" draggable="true">drag me</div>
+            </div>
+            <div class="zone">
+                <span class="placeholder">drop here</span>
+            </div>
+            <div class="zone">
+                <span class="placeholder">drop here</span>
+            </div>
+            <div class="zone">
+                <span class="placeholder">drop here</span>
+            </div>
         </div>
 
         <script>
             const dragItem = document.getElementById("dragItem");
-            const dropZone = document.getElementById("dropZone");
-            const startZone = document.getElementById("startZone");
+            const zones = document.getElementsByClassName("zone");
 
-            [startZone, dropZone].forEach((zone) => {
+            Array.from(zones).forEach((zone) => {
                 zone.addEventListener("dragover", (ev) => {
                     ev.preventDefault();
                 });
