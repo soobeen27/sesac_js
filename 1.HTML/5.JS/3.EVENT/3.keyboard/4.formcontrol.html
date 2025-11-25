@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>입력폼 제어</h1>
+        <form id="myForm" action="/submit" , method="post">
+            <textarea id="myTextArea" rows="10" cols="30"></textarea>
+            <br />
+            <button>제출</button>
+        </form>
+        <script>
+            document
+                .getElementById("myTextArea")
+                .addEventListener("keydown", (ev) => {
+                    if (ev.ctrlKey && ev.key === "Enter") {
+                        event.preventDefault;
+                        console.log("enter");
+                        document.getElementById("myForm").submit();
+                    }
+                });
+        </script>
+    </body>
+</html>

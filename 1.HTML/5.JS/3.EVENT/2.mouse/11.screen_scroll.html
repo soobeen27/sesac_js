@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            #content {
+                height: 2000px;
+                background: linear-gradient(to bottom, yellow 0%, orange 100%);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="content"></div>
+        <script>
+            // window(브라우저)에도 이벤트 추가 가능
+            window.addEventListener("scroll", (ev) => {
+                // const scrollPosition = window.pageYOffset;
+                // console.log(`scroll position: ${scrollPosition}`);
+
+                // const scrollPosition2 = document.documentElement.scrollTop;
+                // console.log(`scroll position2: ${scrollPosition2}`);
+                //브라우저마다 뭐 있고 다른지 다름
+
+                const scrollPos =
+                    window.pageYOffset || document.documentElement.scrollTop;
+                console.log(`둘중하나는 나옴: ${scrollPos}`);
+            });
+        </script>
+    </body>
+</html>

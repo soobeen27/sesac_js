@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script>
+            console.log("head>script의 끝");
+            console.log("헤딩끝", document.getElementById("title"));
+            window.onload = () => {
+                console.log("헤딩끝 window onloader");
+            };
+            addEventListener("DOMContentLoaded", () => {
+                console.log("헤딩끝 DOM content loaded");
+            });
+        </script>
+    </head>
+    <body>
+        <script>
+            console.log("body>script의 시작");
+            console.log("바디시작", document.getElementById("title"));
+            window.onload = () => {
+                console.log("바디시작 window onloader");
+            };
+            addEventListener("DOMContentLoaded", () => {
+                console.log("바디시작 DOM content loaded");
+            });
+        </script>
+        <h1 id="title">my heading</h1>
+        <script>
+            console.log("body>script의 끝");
+            console.log("바디끝", document.getElementById("title"));
+            window.onload = () => {
+                console.log("바디끝 window onloader");
+            };
+            addEventListener("DOMContentLoaded", () => {
+                console.log("바디끝 DOM content loaded");
+            });
+        </script>
+    </body>
+</html>

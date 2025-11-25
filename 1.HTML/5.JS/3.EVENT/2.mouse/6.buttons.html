@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1 id="title">variable mouse button test</h1>
+        <script>
+            const title = document.getElementById("title");
+            title.addEventListener("mousedown", (evnet) => {
+                // console.log("mouse down");
+                switch (event.button) {
+                    case 0:
+                        console.log("좌클릭");
+                        break;
+                    case 1:
+                        console.log("미들클릭");
+                        break;
+                    case 2:
+                        console.log("우클릭");
+                        break;
+                    default:
+                        console.log("모름");
+                }
+            });
+            title.addEventListener("mouseup", () => {
+                // console.log("mouse up");
+            });
+        </script>
+    </body>
+</html>

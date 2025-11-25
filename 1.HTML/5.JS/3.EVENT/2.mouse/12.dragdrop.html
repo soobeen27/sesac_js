@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            #dragItem {
+                width: 100px;
+                height: 100px;
+                background-color: yellow;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 20px;
+                cursor: pointer;
+            }
+            #dropZone {
+                width: 200px;
+                height: 200px;
+                background-color: wheat;
+                border: 2px dashed gray;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>drag&drop</h1>
+        <div id="dragItem" draggable="true">drag me</div>
+        <div id="dropZone">drop here</div>
+        <script>
+            const dragItem = document.getElementById("dragItem");
+            const dropZone = document.getElementById("dropZone");
+            dragItem.addEventListener("dragstart", () => {
+                console.log("drag start");
+            });
+            dragItem.addEventListener("dragend", () => {
+                console.log("dragend");
+            });
+
+            dropZone.addEventListener("dragover", (ev) => {
+                ev.preventDefault();
+                console.log("something comming");
+            });
+            dropZone.addEventListener("drop", (ev) => {
+                console.log("dropped something");
+                ev.preventDefault();
+                dropZone.appendChild(dragItem);
+            });
+        </script>
+    </body>
+</html>

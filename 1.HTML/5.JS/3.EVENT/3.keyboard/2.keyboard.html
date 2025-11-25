@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            #displayKey {
+                font-size: 100px;
+                text-align: center;
+                margin-top: 50px;
+                color: #333;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>키보드 이벤트2</h1>
+        <input type="text" id="myInput" placeholder="키입력" />
+        <div id="displayKey"></div>
+        <script>
+            const display = document.getElementById("displayKey");
+            document.addEventListener("keydown", (ev) => {
+                display.textContent = display.textContent + ev.key;
+            });
+        </script>
+    </body>
+</html>

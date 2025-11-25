@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>focus event</h1>
+        <input type="text" id="myInput" placeholder="write letters" />
+        <p id="lengthDisplay"></p>
+        <script>
+            const myInput = document.getElementById("myInput");
+            const lengthDisplay = document.getElementById("lengthDisplay");
+            myInput.addEventListener("focus", () => {
+                console.log("focused");
+            });
+            myInput.addEventListener("blur", () => {
+                console.log("blur");
+                lengthDisplay.textContent = `입력된 글자수: ${myInput.value.length}`;
+            });
+        </script>
+    </body>
+</html>

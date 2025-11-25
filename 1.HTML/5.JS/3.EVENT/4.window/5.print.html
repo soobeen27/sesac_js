@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>프린트 출력</h1>
+        <button id="printButton">print</button>
+        <script>
+            document
+                .getElementById("printButton")
+                .addEventListener("click", () => {
+                    window.print();
+                });
+            window.onbeforeprint = () => {
+                console.log("출력하기 전에 호출");
+            };
+
+            window.onafterprint = () => {
+                console.log("출력 이후 호출");
+            };
+        </script>
+    </body>
+</html>

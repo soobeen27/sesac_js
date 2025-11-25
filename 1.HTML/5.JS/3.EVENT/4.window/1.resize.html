@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>원도우 리사이즈</h1>
+        <script>
+            window.addEventListener("resize", () => {
+                // console.log("원도우 창 변하는중");
+                const height = window.innerHeight;
+                const width = window.innerWidth;
+                console.log(`window size가 ${width}x${height}로 변경되었음`);
+            });
+            //윈도우 사이즈가 변할 수 있었음
+            // 각종 관고와 악성 코드 사이트가 악용하다보니 막힘
+            // window.resizeTo(600, 800);
+        </script>
+    </body>
+</html>

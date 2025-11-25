@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 페이지의 요소를 가져올건데 로딩이 언제끝날지 몰라서 끝난 다음에 처리. 이벤트 리스너
+
+            document.addEventListener("DOMContentLoaded", () => {
+                const heading = document.getElementById("title");
+                console.log(heading);
+            });
+        </script>
+        <h1 id="title">hello DOM</h1>
+    </body>
+</html>
