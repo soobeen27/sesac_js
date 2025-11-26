@@ -17,29 +17,54 @@
                 align-items: center;
                 background-color: lightgray;
             }
+            #watchContainer {
+                text-align: center;
+                font-size: 30px;
+                background-color: white;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 4px 4px 10px #0a0a0a90;
+            }
+            #watchContainer p {
+                margin: 0 0 10px 0;
+            }
+            #btnContainer button {
+                padding: 10px 20px;
+                border: 1px solid rgb(179, 179, 179);
+                background-color: rgb(208, 208, 208);
+                border-radius: 4px;
+            }
+            #btnContainer button:disabled {
+                color: rgb(179, 179, 179);
+                background-color: rgb(230, 230, 230);
+                border: 0;
+            }
         </style>
     </head>
     <body>
-        <div id="watchConatiner">
+        <div id="watchContainer">
             <p id="watchTime">00:00.00</p>
             <div id="btnContainer">
                 <button id="startBtn">Start</button>
-                <button id="stopBtn">Stop</button>
+                <button disabled id="stopBtn">Stop</button>
                 <button id="resetBtn">Reset</button>
             </div>
         </div>
         <script>
             const watchTime = document.getElementById("watchTime");
-            document
-                .getElementById("startBtn")
-                .addEventListener("click", start);
-            document.getElementById("stopBtn").addEventListener("click", stop);
+            const startBtn = document.getElementById("startBtn");
+            const stopBtn = document.getElementById("stopBtn");
+
+            startBtn.addEventListener("click", start);
+            stopBtn.addEventListener("click", stop);
             document
                 .getElementById("resetBtn")
                 .addEventListener("click", reset);
             let timer;
             let time = 0;
             function start() {
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
                 timer = setInterval(() => {
                     time++;
                     let minute = Math.floor(time / 6000);
@@ -54,10 +79,15 @@
             }
 
             function stop() {
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
                 clearInterval(timer);
             }
 
             function reset() {
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+                clearInterval(timer);
                 time = 0;
                 watchTime.textContent = "00:00.00";
             }
