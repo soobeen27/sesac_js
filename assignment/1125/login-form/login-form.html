@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>login form</title>
+        <style>
+            #container {
+                display: flex;
+                flex-direction: column;
+                width: 400px;
+                /* background-color: blue; */
+            }
+            form * {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .interestRadio {
+                display: inline;
+            }
+
+            .input {
+                text-indent: 8px;
+                width: 100%;
+            }
+
+            #submitBtn {
+                background-color: blue;
+                color: white;
+                border-radius: 4px;
+                padding: 8px;
+                border: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <h1>회원가입 폼</h1>
+            <form>
+                <label for="userID">사용자명</label>
+                <input
+                    class="input"
+                    type="text"
+                    name="userID"
+                    placeholder="3~10글자로 입력하세요"
+                />
+                <label for="password">비밀번호</label>
+                <input
+                    class="input"
+                    type="password"
+                    name="password"
+                    placeholder="대소문자, 숫자/특수문자 포함 8자 이상"
+                />
+                <label for="name">이름</label>
+                <input
+                    class="input"
+                    type="text"
+                    name="name"
+                    placeholder="1~10글자로 입력하세요"
+                />
+                <label for="birthdate">생년월일</label>
+                <input class="input" type="date" name="birthdate" />
+                <label for="interests"
+                    >관심 분야 (최소1개, 최대 3개 선택)</label
+                >
+                <input type="radio" class="interestRadio" /> 관심분야 2
+                <input type="radio" class="interestRadio" /> 관심분야 1
+                <input type="radio" class="interestRadio" /> 관심분야 3
+                <input type="radio" class="interestRadio" /> 관심분야 4
+                <button id="submitBtn">제출</button>
+            </form>
+        </div>
+    </body>
+</html>

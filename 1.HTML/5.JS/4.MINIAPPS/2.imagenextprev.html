@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            #container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            #imgContainer {
+                width: 300px;
+                height: 300px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <img id="imgContainer" />
+            <p id="imgName"></p>
+            <div id="btnContainer">
+                <button class="imgBtn">Previous</button>
+                <button class="imgBtn">Next</button>
+            </div>
+        </div>
+        <script>
+            const imgContainer = document.getElementById("imgContainer");
+            const btns = document.getElementsByClassName("imgBtn");
+            const imgName = document.getElementById("imgName");
+            const images = [
+                "images/istockphoto-1021908014-612x612.jpg",
+                "images/dice.jpg",
+                "images/sample-jpeg-heartwarming-close-up-endearing-small-mouse-happily-munching-piece-cheese-357411130.jpg.webp",
+            ];
+            let imageIndex = 0;
+
+            imgContainer.src = images[imageIndex];
+            imgName.textContent = images[imageIndex];
+
+            Array.from(btns).forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const btnText = btn.textContent;
+                    if (btnText === "Previous") {
+                        imageIndex =
+                            imageIndex > 0 ? imageIndex - 1 : images.length - 1;
+                    } else {
+                        imageIndex =
+                            imageIndex === images.length - 1
+                                ? 0
+                                : imageIndex + 1;
+                    }
+                    imgContainer.src = images[imageIndex];
+                    imgName.textContent = images[imageIndex];
+                });
+            });
+        </script>
+    </body>
+</html>

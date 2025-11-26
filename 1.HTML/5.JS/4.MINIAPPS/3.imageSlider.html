@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            #container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            #imgContainer {
+                width: 400px;
+                height: 400px;
+                overflow: hidden;
+                display: grid;
+                grid-template-rows: 1fr;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="imgContainer"></div>
+            <p id="imgName"></p>
+            <div id="btnContainer">
+                <button disabled class="imgBtn" id="prevBtn">Previous</button>
+                <button class="imgBtn" id="nextBtn">Next</button>
+            </div>
+        </div>
+        <script>
+            const imgContainer = document.getElementById("imgContainer");
+            const btns = document.getElementsByClassName("imgBtn");
+            const imgName = document.getElementById("imgName");
+            const preBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
+            const images = [
+                "images/istockphoto-1021908014-612x612.jpg",
+                "images/dice.jpg",
+                "images/sample-jpeg-heartwarming-close-up-endearing-small-mouse-happily-munching-piece-cheese-357411130.jpg.webp",
+            ];
+            let currentX = 0;
+            imgContainer.style.gridTemplateColumns = `repeat(${images.length}, 1fr)`;
+            images.forEach((img) => {
+                const imgEl = document.createElement("img");
+                imgEl.style.width = "400px";
+                imgEl.src = img;
+                imgContainer.appendChild(imgEl);
+            });
+
+            Array.from(btns).forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const btnText = btn.textContent;
+                    if (btnText === "Next") {
+                        currentX -= 100;
+                    } else {
+                        currentX += 100;
+                    }
+                    Array.from(imgContainer.children).forEach((imgEl) => {
+                        slideImg(imgEl, currentX);
+                    });
+                    if (currentX === 0) {
+                        preBtn.disabled = true;
+                    } else if (currentX === -(100 * (images.length - 1))) {
+                        console.log("called");
+                        nextBtn.disabled = true;
+                    } else {
+                        preBtn.disabled = false;
+                        nextBtn.disabled = false;
+                    }
+                });
+            });
+
+            function slideImg(el, x) {
+                el.animate(
+                    {
+                        transform: `translateX(${x}%)`,
+                        offset: 1,
+                    },
+                    {
+                        duration: 1000,
+                        iterations: 1,
+                        fill: "forwards",
+                    }
+                );
+            }
+        </script>
+    </body>
+</html>

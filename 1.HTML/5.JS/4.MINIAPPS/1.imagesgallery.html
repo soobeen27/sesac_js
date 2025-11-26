@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .imagegallery {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                width: 500px;
+            }
+            .galleryImage {
+                width: 200px;
+                height: 200px;
+            }
+            #largeImage {
+                display: none;
+                width: 600px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>이미지 갤러리</h1>
+        <div class="imagegallery">
+            <img class="galleryImage" src="images/dice.jpg" alt="" />
+            <img
+                class="galleryImage"
+                src="images/istockphoto-1021908014-612x612.jpg"
+                alt=""
+            />
+            <img
+                class="galleryImage"
+                src="images/sample-jpeg-heartwarming-close-up-endearing-small-mouse-happily-munching-piece-cheese-357411130.jpg.webp"
+                alt=""
+            />
+        </div>
+        <img id="largeImage" alt="큰 이미지" />
+        <script>
+            const images = document.getElementsByClassName("galleryImage");
+            const largeImage = document.getElementById("largeImage");
+            Array.from(images).forEach((image) => {
+                image.addEventListener("click", () => {
+                    console.log("image clicked");
+                    largeImage.src = image.src;
+                    largeImage.style.display = "block";
+                });
+            });
+        </script>
+    </body>
+</html>
