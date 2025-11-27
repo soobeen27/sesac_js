@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>동적 검색 필터</h1>
+        <input type="text" id="searchInput" placeholder="검색어를 입력" />
+        <ul id="itemList">
+            <li>사과</li>
+            <li>바나나</li>
+            <li>오렌지</li>
+            <li>파인애플</li>
+            <li>딸기</li>
+            <li>키위</li>
+            <li>레몬</li>
+            <li>라임</li>
+            <li>체리</li>
+            <li>블루베리</li>
+            <li>수박</li>
+            <li>자두</li>
+            <li>복숭아</li>
+            <li>용과</li>
+        </ul>
+        <script>
+            const searchInput = document.getElementById("searchInput");
+            const itemList = document.getElementById("itemList");
+            const items = itemList.getElementsByTagName("li");
+
+            const items2 = document.querySelectorAll("#itemList li");
+
+            searchInput.addEventListener("input", () => {
+                const filter = searchInput.value.trim();
+                //방법1
+                // for (let i = 0; i < items.length; i++) {
+                //     const item = items[i];
+                //     const text = item.textContent || item.innerText;
+                //     if (text.includes(filter)) {
+                //         item.style.display = "";
+                //     } else {
+                //         item.style.display = "none";
+                //     }
+                // }
+                // 방법2
+                items2.forEach((el) => {
+                    const text = el.textContent;
+                    if (text.includes(filter)) {
+                        el.style.display = "";
+                    } else {
+                        el.style.display = "none";
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
