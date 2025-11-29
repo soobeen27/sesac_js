@@ -24,7 +24,7 @@
                 flex-direction: column;
                 width: 600px;
             }
-            form * {
+            form > * {
                 margin-bottom: 25px;
             }
 
@@ -72,8 +72,15 @@
                 margin-top: 10px;
             }
 
-            #interestContainer label {
+            #interestContainer span {
                 margin-right: 10px;
+            }
+
+            .interestsSpan {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                margin-bottom: 10px;
             }
 
             #submitBtn {
@@ -84,14 +91,21 @@
                 margin-left: 16px;
                 border: 0;
             }
-            .wrongInputIcon,
-            .rightInputIcon {
-                position: absolute;
+
+            .statusIcon {
                 display: none;
-                right: 10px;
                 width: 15px;
+            }
+
+            .textInput {
+                position: absolute;
+                right: 10px;
                 top: 50%;
                 transform: translateY(-50%);
+            }
+
+            .checkBoxIcon {
+                position: relative;
             }
 
             .wrongInputIcon {
@@ -108,6 +122,10 @@
 
             .inputRight {
                 border-color: green;
+            }
+
+            .showIcon {
+                display: block;
             }
         </style>
     </head>
@@ -145,7 +163,7 @@
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="wrongInputIcon"
+                        class="wrongInputIcon textInput statusIcon"
                     >
                         <path
                             stroke-linecap="round"
@@ -159,7 +177,7 @@
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="rightInputIcon"
+                        class="rightInputIcon textInput statusIcon"
                     >
                         <path
                             stroke-linecap="round"
@@ -199,7 +217,7 @@
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="wrongInputIcon"
+                        class="wrongInputIcon textInput statusIcon"
                     >
                         <path
                             stroke-linecap="round"
@@ -213,7 +231,7 @@
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="rightInputIcon"
+                        class="rightInputIcon textInput statusIcon"
                     >
                         <path
                             stroke-linecap="round"
@@ -253,7 +271,7 @@
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="wrongInputIcon"
+                        class="wrongInputIcon textInput statusIcon"
                     >
                         <path
                             stroke-linecap="round"
@@ -267,7 +285,7 @@
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="rightInputIcon"
+                        class="rightInputIcon textInput statusIcon"
                     >
                         <path
                             stroke-linecap="round"
@@ -302,7 +320,7 @@
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="wrongInputIcon"
+                        class="wrongInputIcon textInput statusIcon"
                     >
                         <path
                             stroke-linecap="round"
@@ -316,7 +334,7 @@
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="rightInputIcon"
+                        class="rightInputIcon textInput statusIcon"
                     >
                         <path
                             stroke-linecap="round"
@@ -325,9 +343,39 @@
                         />
                     </svg>
                 </div>
-                <label for="interests"
-                    >관심 분야 (최소1개, 최대 3개 선택)</label
-                >
+                <span class="interestsSpan"
+                    ><label for="interests"
+                        >관심 분야 (최소1개, 최대 3개 선택)</label
+                    >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="wrongInputIcon statusIcon checkBoxIcon"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                        />
+                    </svg>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="rightInputIcon statusIcon checkBoxIcon"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m4.5 12.75 6 6 9-13.5"
+                        />
+                    </svg>
+                </span>
                 <div id="interestContainer">
                     <label for="interest">
                         <input
@@ -377,13 +425,13 @@
                     if (isInputRight(input.name, input.value)) {
                         input.classList.add("inputRight");
                         input.classList.remove("inputError");
-                        rightIcon.style.display = "block";
-                        wrongIcon.style.display = "none";
+                        rightIcon.classList.add("showIcon");
+                        wrongIcon.classList.remove("showIcon");
                     } else {
                         input.classList.remove("inputRight");
                         input.classList.add("inputError");
-                        wrongIcon.style.display = "block";
-                        rightIcon.style.display = "none";
+                        wrongIcon.classList.add("showIcon");
+                        rightIcon.classList.remove("showIcon");
                     }
                     if (input.name === "birthdate") {
                         input.style.paddingRight = "25px";
@@ -393,15 +441,21 @@
 
             const checkBoxes = document.querySelectorAll(".interestedCheck");
             checkBoxes.forEach((checkBox) => {
+                const interestsSpan = document.querySelector(".interestsSpan");
+                const wrongIcon =
+                    interestsSpan.querySelector(".wrongInputIcon");
+                const rightIcon =
+                    interestsSpan.querySelector(".rightInputIcon");
                 checkBox.addEventListener("change", () => {
                     const checkCount = document.querySelectorAll(
                         ".interestedCheck:checked"
                     ).length;
-                    if (checkCount === 0) {
-                        console.log("한개는 선택");
-                    }
-                    if (checkCount > 3) {
-                        console.log("3개 이상 선택 ㄴㄴ");
+                    if (checkCount === 0 || checkCount > 3) {
+                        wrongIcon.classList.add("showIcon");
+                        rightIcon.classList.remove("showIcon");
+                    } else {
+                        rightIcon.classList.add("showIcon");
+                        wrongIcon.classList.remove("showIcon");
                     }
                 });
             });
