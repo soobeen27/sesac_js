@@ -16,7 +16,6 @@
                 margin: 16px 16px 10px 16px;
             }
             .inputIcon {
-                /* width: 15px; */
                 padding: 6px;
                 color: gray;
             }
@@ -26,7 +25,7 @@
                 width: 600px;
             }
             form * {
-                margin-bottom: 10px;
+                margin-bottom: 25px;
             }
 
             form label {
@@ -35,8 +34,11 @@
             }
 
             .inputContainer {
+                position: relative;
                 display: flex;
                 margin-left: 16px;
+                height: 30px;
+                border-color: rgb(200, 200, 200);
             }
 
             .inputContainer span {
@@ -49,7 +51,7 @@
                 border-style: solid;
                 border-bottom-left-radius: 4px;
                 border-top-left-radius: 4px;
-                height: 30px;
+                height: 100%;
                 width: 30px;
             }
 
@@ -57,9 +59,13 @@
                 display: inline;
                 text-indent: 8px;
                 width: 100%;
-                height: 30px;
+                height: 100%;
                 padding-right: 8px;
+                border: 0;
                 border: 1px solid rgb(200, 200, 200);
+            }
+            .input:focus {
+                outline: none;
             }
 
             #interestContainer {
@@ -77,6 +83,31 @@
                 padding: 8px 16px;
                 margin-left: 16px;
                 border: 0;
+            }
+            .wrongInputIcon,
+            .rightInputIcon {
+                position: absolute;
+                display: none;
+                right: 10px;
+                width: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .wrongInputIcon {
+                color: red;
+            }
+
+            .rightInputIcon {
+                color: green;
+            }
+
+            .inputError {
+                border-color: red;
+            }
+
+            .inputRight {
+                border-color: green;
             }
         </style>
     </head>
@@ -108,6 +139,34 @@
                         name="userID"
                         placeholder="3~10글자로 입력하세요"
                     />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="wrongInputIcon"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                        />
+                    </svg>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="rightInputIcon"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m4.5 12.75 6 6 9-13.5"
+                        />
+                    </svg>
                 </div>
 
                 <label for="password">비밀번호</label>
@@ -134,6 +193,34 @@
                         name="password"
                         placeholder="대소문자, 숫자/특수문자 포함 8자 이상"
                     />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="wrongInputIcon"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                        />
+                    </svg>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="rightInputIcon"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m4.5 12.75 6 6 9-13.5"
+                        />
+                    </svg>
                 </div>
 
                 <label for="name">이름</label>
@@ -160,6 +247,34 @@
                         name="name"
                         placeholder="1~10글자로 입력하세요"
                     />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="wrongInputIcon"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                        />
+                    </svg>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="rightInputIcon"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m4.5 12.75 6 6 9-13.5"
+                        />
+                    </svg>
                 </div>
 
                 <label for="birthdate">생년월일</label>
@@ -181,30 +296,141 @@
                         </svg>
                     </span>
                     <input class="input" type="date" name="birthdate" />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="wrongInputIcon"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                        />
+                    </svg>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="rightInputIcon"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m4.5 12.75 6 6 9-13.5"
+                        />
+                    </svg>
                 </div>
                 <label for="interests"
                     >관심 분야 (최소1개, 최대 3개 선택)</label
                 >
                 <div id="interestContainer">
                     <label for="interest">
-                        <input type="radio" class="interestRadio" />
+                        <input
+                            type="checkbox"
+                            class="interestedCheck"
+                            value="1"
+                        />
                         관심분야 1</label
                     >
                     <label for="interest">
-                        <input type="radio" class="interestRadio" />
+                        <input
+                            type="checkbox"
+                            class="interestedCheck"
+                            value="2"
+                        />
                         관심분야 2</label
                     >
                     <label for="interest">
-                        <input type="radio" class="interestRadio" />
+                        <input
+                            type="checkbox"
+                            class="interestedCheck"
+                            value="3"
+                        />
                         관심분야 3</label
                     >
                     <label for="interest">
-                        <input type="radio" class="interestRadio" />
+                        <input
+                            type="checkbox"
+                            class="interestedCheck"
+                            value="4"
+                        />
                         관심분야 4</label
                     >
                 </div>
                 <button id="submitBtn">제출</button>
             </form>
         </div>
+        <script>
+            const inputs = document.querySelectorAll(".input");
+            inputs.forEach((input) => {
+                input.addEventListener("input", (ev) => {
+                    const inputContainer = input.closest(".inputContainer");
+                    const rightIcon =
+                        inputContainer.querySelector(".rightInputIcon");
+                    const wrongIcon =
+                        inputContainer.querySelector(".wrongInputIcon");
+                    if (isInputRight(input.name, input.value)) {
+                        input.classList.add("inputRight");
+                        input.classList.remove("inputError");
+                        rightIcon.style.display = "block";
+                        wrongIcon.style.display = "none";
+                    } else {
+                        input.classList.remove("inputRight");
+                        input.classList.add("inputError");
+                        wrongIcon.style.display = "block";
+                        rightIcon.style.display = "none";
+                    }
+                    if (input.name === "birthdate") {
+                        input.style.paddingRight = "25px";
+                    }
+                });
+            });
+
+            const checkBoxes = document.querySelectorAll(".interestedCheck");
+            checkBoxes.forEach((checkBox) => {
+                checkBox.addEventListener("change", () => {
+                    const checkCount = document.querySelectorAll(
+                        ".interestedCheck:checked"
+                    ).length;
+                    if (checkCount === 0) {
+                        console.log("한개는 선택");
+                    }
+                    if (checkCount > 3) {
+                        console.log("3개 이상 선택 ㄴㄴ");
+                    }
+                });
+            });
+
+            function isInputRight(name, text) {
+                switch (name) {
+                    case "userID":
+                        console.log(text);
+                        if ((3 <= text.length) & (text.length <= 10)) {
+                            return true;
+                        }
+                        return false;
+                    case "password":
+                        const regex =
+                            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+                        return regex.test(text);
+                        break;
+                    case "name":
+                        if ((1 <= text.length) & (text.length <= 10)) {
+                            return true;
+                        }
+                        break;
+                    case "birthdate":
+                        if (text) return true;
+                        return false;
+                    default:
+                        break;
+                }
+            }
+        </script>
     </body>
 </html>

@@ -5,17 +5,105 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
         <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            html,
+            body {
+                height: 100%;
+                width: 100%;
+            }
+            body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color: azure;
+            }
+
+            #container > h1 {
+                padding: 24px 16px 16px 16px;
+                font-size: 1.5rem;
+            }
+            #container {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 80%;
+                width: 350px;
+                background-color: white;
+                border-radius: 24px;
+                box-shadow: 10px 10px 10px #00000010;
+            }
+
+            #input-container {
+                display: flex;
+                margin: 0 16px 24px 16px;
+            }
+            #input-container * {
+                border: 0;
+                border-radius: 20px;
+                background-color: rgb(251, 251, 251);
+                box-shadow: 3px 3px 10px #00000010;
+                cursor: pointer;
+                height: 40px;
+            }
+
+            #add-todo {
+                width: 40px;
+            }
+            #add-todo:active .arrow-up {
+                color: skyblue;
+            }
+            #new-todo {
+                flex: 1;
+                cursor: pointer;
+                margin-right: 8px;
+                text-indent: 12px;
+            }
+            #new-todo:focus {
+                outline: none;
+                border: 0.5px solid skyblue;
+            }
             .line-through {
                 text-decoration: line-through;
+            }
+            .arrow-up {
+                padding: 10px;
+                color: gray;
             }
         </style>
     </head>
     <body>
-        <h1>투두 리스트</h1>
-        <input type="text" id="new-todo" placeholder="할일을 입력하시오" />
-        <button id="add-todo">입력</button>
-
-        <ul id="todo-list"></ul>
+        <div id="container">
+            <h1>Todolist</h1>
+            <ul id="todo-list"></ul>
+            <div id="input-container">
+                <input
+                    type="text"
+                    id="new-todo"
+                    placeholder="할일을 입력하시오"
+                />
+                <button id="add-todo">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="arrow-up"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"
+                        />
+                    </svg>
+                </button>
+            </div>
+        </div>
         <script>
             const addTodoBtn = document.querySelector("#add-todo");
             const newTodo = document.querySelector("#new-todo");
