@@ -92,6 +92,10 @@
                 border: 0;
             }
 
+            #submitBtn:disabled {
+                background-color: lightgray;
+            }
+
             .statusIcon {
                 display: none;
                 width: 15px;
@@ -410,57 +414,39 @@
                         관심분야 4</label
                     >
                 </div>
-                <button id="submitBtn">제출</button>
+                <button id="submitBtn" disabled>제출</button>
             </form>
         </div>
         <script>
-            const inputs = document.querySelectorAll(".input");
-            inputs.forEach((input) => {
-                input.addEventListener("input", (ev) => {
-                    const inputContainer = input.closest(".inputContainer");
-                    const rightIcon =
-                        inputContainer.querySelector(".rightInputIcon");
-                    const wrongIcon =
-                        inputContainer.querySelector(".wrongInputIcon");
-                    if (isInputRight(input.name, input.value)) {
-                        input.classList.add("inputRight");
-                        input.classList.remove("inputError");
-                        rightIcon.classList.add("showIcon");
-                        wrongIcon.classList.remove("showIcon");
-                    } else {
-                        input.classList.remove("inputRight");
-                        input.classList.add("inputError");
-                        wrongIcon.classList.add("showIcon");
-                        rightIcon.classList.remove("showIcon");
-                    }
-                    if (input.name === "birthdate") {
-                        input.style.paddingRight = "25px";
-                    }
-                });
-            });
-
-            const checkBoxes = document.querySelectorAll(".interestedCheck");
-            checkBoxes.forEach((checkBox) => {
-                const interestsSpan = document.querySelector(".interestsSpan");
-                const wrongIcon =
-                    interestsSpan.querySelector(".wrongInputIcon");
-                const rightIcon =
-                    interestsSpan.querySelector(".rightInputIcon");
-                checkBox.addEventListener("change", () => {
-                    const checkCount = document.querySelectorAll(
+            const joinForm = document.querySelector("form");
+            joinForm.addEventListener("input", (ev) => {
+                const input = ev.target.closest("input");
+                if (!input) return;
+                if (input.name) {
+                    drawInputStatusIcon(input, isInputRight(input));
+                } else {
+                    let checkedCount = joinForm.querySelectorAll(
                         ".interestedCheck:checked"
                     ).length;
-                    if (checkCount === 0 || checkCount > 3) {
-                        wrongIcon.classList.add("showIcon");
-                        rightIcon.classList.remove("showIcon");
-                    } else {
-                        rightIcon.classList.add("showIcon");
-                        wrongIcon.classList.remove("showIcon");
+                    interestCheck(checkedCount);
+                }
+                const allRightIcons =
+                    document.querySelectorAll(".rightInputIcon");
+                const showedAllRigtnIcons = Array.from(allRightIcons).filter(
+                    (icons) => {
+                        return Array.from(icons.classList).includes("showIcon");
                     }
-                });
+                );
+                if (allRightIcons.length === showedAllRigtnIcons.length) {
+                    joinForm.querySelector("#submitBtn").disabled = false;
+                } else {
+                    joinForm.querySelector("#submitBtn").disabled = true;
+                }
             });
 
-            function isInputRight(name, text) {
+            function isInputRight(input) {
+                const name = input.name;
+                const text = input.value;
                 switch (name) {
                     case "userID":
                         if ((3 <= text.length) & (text.length <= 10)) {
@@ -482,6 +468,44 @@
                         return false;
                     default:
                         break;
+                }
+            }
+
+            function drawInputStatusIcon(inputEl, status) {
+                const inputContainer = inputEl.closest(".inputContainer");
+                const rightIcon =
+                    inputContainer.querySelector(".rightInputIcon");
+                const wrongIcon =
+                    inputContainer.querySelector(".wrongInputIcon");
+                if (status) {
+                    inputEl.classList.add("inputRight");
+                    inputEl.classList.remove("inputError");
+                    rightIcon.classList.add("showIcon");
+                    wrongIcon.classList.remove("showIcon");
+                } else {
+                    inputEl.classList.remove("inputRight");
+                    inputEl.classList.add("inputError");
+                    wrongIcon.classList.add("showIcon");
+                    rightIcon.classList.remove("showIcon");
+                }
+                if (inputEl.name === "birthdate") {
+                    inputEl.style.paddingRight = "25px";
+                }
+            }
+
+            function interestCheck(checkCount) {
+                const interestsSpan = document.querySelector(".interestsSpan");
+                const wrongIcon =
+                    interestsSpan.querySelector(".wrongInputIcon");
+                const rightIcon =
+                    interestsSpan.querySelector(".rightInputIcon");
+
+                if (checkCount === 0 || checkCount > 3) {
+                    wrongIcon.classList.add("showIcon");
+                    rightIcon.classList.remove("showIcon");
+                } else {
+                    rightIcon.classList.add("showIcon");
+                    wrongIcon.classList.remove("showIcon");
                 }
             }
         </script>
