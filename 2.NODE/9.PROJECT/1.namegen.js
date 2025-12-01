@@ -1,0 +1,3 @@
+class NameGenerator {
+    constructor() {}
+}
