@@ -1,4 +1,4 @@
-const randomValueFrom = require("./randomValueFrom");
+const randomValueFrom = require("./random-value-from");
 const { cities, gu } = require("./namespace");
 
 function randomAddress() {

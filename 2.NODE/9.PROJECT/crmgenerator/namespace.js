@@ -237,4 +237,12 @@ const downtownNames = [
     "한남동",
     "연남동",
 ];
-module.exports = { maleNames, femaleNames, lastNames, cities, gu };
+module.exports = {
+    maleNames,
+    femaleNames,
+    lastNames,
+    cities,
+    gu,
+    cafeNames,
+    downtownNames,
+};

@@ -1,6 +1,6 @@
-const CsvWriter = require("./csvwriter");
-const UserGenerator = require("./user-generator");
+const writeCvsAutoHead = require("./write-cvs-autohead");
+const generateUsers = require("./generate-users");
+const generateStores = require("./generate-stores");
 
-let u = new UserGenerator();
-let c = new CsvWriter(u.generate(10));
-c.writeTo("./user.csv");
+writeCvsAutoHead("./user.cvs", generateUsers(100));
+writeCvsAutoHead("./store.cvs", generateStores(100));
