@@ -1,12 +1,10 @@
 const { config } = require("process");
 const Generator = require("./generator");
-const {
-    maleNames,
-    femaleNames,
-    lastNames,
-    cities,
-    gu,
-} = require("./namespace");
+const { maleNames, femaleNames, lastNames } = require("./namespace");
+
+const randomAddress = require("./randomAddress");
+const randomValueFrom = require("./randomValueFrom");
+
 const crypto = require("crypto");
 
 class UserGenerator extends Generator {
@@ -22,15 +20,11 @@ class UserGenerator extends Generator {
         return userArray;
     }
 
-    #randValueFrom(array) {
-        return array[Math.floor(Math.random() * array.length)];
-    }
-
-    #randGender() {
+    #randomGender() {
         return Math.random() > 0.5 ? "Male" : "Female";
     }
 
-    #getRandDate() {
+    #randomDate() {
         const startDate = new Date(1980, 0, 1).getTime();
         const endDate = new Date(2010, 0, 1).getTime();
 
@@ -38,7 +32,7 @@ class UserGenerator extends Generator {
         return new Date(randTime);
     }
 
-    #getRandDateStr(date) {
+    #randomDateStr(date) {
         const year = date.getFullYear();
         const month = (date.getMonth() + 1).toString().padStart(2, "0");
         const day = date.getDate().toString().padStart(2, "0");
@@ -51,26 +45,18 @@ class UserGenerator extends Generator {
         return now - bornYear;
     }
 
-    #getRandAddress() {
-        const randCity = this.#randValueFrom(cities);
-        const randGu = this.#randValueFrom(gu);
-        const randRoad = Math.floor(Math.random() * 99) + 1;
-        const detail = Math.floor(Math.random() * 99) + 1;
-        return `${randCity} ${randGu} ${randRoad}길 ${detail}`;
-    }
-
     #generateUser() {
         const id = crypto.randomUUID();
-        const gender = this.#randGender();
+        const gender = this.#randomGender();
         const firstName =
             gender === "Male"
-                ? this.#randValueFrom(maleNames)
-                : this.#randValueFrom(femaleNames);
-        const lastName = this.#randValueFrom(lastNames);
-        const birthDate = this.#getRandDate();
-        const birthDateStr = this.#getRandDateStr(birthDate);
+                ? randomValueFrom(maleNames)
+                : randomValueFrom(femaleNames);
+        const lastName = randomValueFrom(lastNames);
+        const birthDate = this.#randomDate();
+        const birthDateStr = this.#randomDateStr(birthDate);
         const age = this.#getAge(birthDate);
-        const address = this.#getRandAddress();
+        const address = randomAddress();
         const user = {
             id: id,
             name: `${lastName}${firstName}`,

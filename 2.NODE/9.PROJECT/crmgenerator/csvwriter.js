@@ -5,7 +5,7 @@ class CsvWriter {
         this.objArr = objArr;
     }
 
-    write(path) {
+    writeTo(path) {
         const csvWriter = createCsvWriter({
             path: path,
             header: this.#createHeader(),
