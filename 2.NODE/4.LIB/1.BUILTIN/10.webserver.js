@@ -3,7 +3,8 @@ const http = require("http");
 const server = http.createServer();
 
 server.on("request", (req, res) => {
-    console.log("http 요청이 시작됨");
+    const ip = req.socket.remoteAddress;
+    console.log("http 요청이 시작됨 주소:", ip);
     fs.readFile("index2.html", (err, data) => {
         if (err) {
             console.log(err);
