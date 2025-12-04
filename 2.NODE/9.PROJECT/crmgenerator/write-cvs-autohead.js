@@ -1,13 +1,11 @@
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 
-const writeCvsAutoHead = (path, objArr) => {
+const writeCvsAutoHead = (path, objArr, callback) => {
     const csvWriter = createCsvWriter({
         path: path,
         header: createHeader(objArr),
     });
-    csvWriter.writeRecords(objArr).then(() => {
-        console.log("...Done");
-    });
+    csvWriter.writeRecords(objArr).then(callback);
 };
 
 const createHeader = (objArr) => {
