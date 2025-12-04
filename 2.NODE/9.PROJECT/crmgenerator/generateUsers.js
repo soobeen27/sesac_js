@@ -1,6 +1,6 @@
-const randomAddress = require("./random-address");
-const randomValueFrom = require("./random-value-from");
-const { randomDate, randomDateStr } = require("./random-date");
+const randomAddress = require("./utils/randomAddress");
+const randomValueFrom = require("./utils/randomValueFrom");
+const { randomDate, randomDateStr } = require("./utils/randomDate");
 
 const crypto = require("crypto");
 
@@ -15,21 +15,6 @@ const generateUsers = (count) => {
 const randomGender = () => {
     return Math.random() > 0.5 ? "Male" : "Female";
 };
-
-// const randomDate = () => {
-//     const startDate = new Date(1980, 0, 1).getTime();
-//     const endDate = new Date(2010, 0, 1).getTime();
-
-//     const randTime = Math.random() * (endDate - startDate) + startDate;
-//     return new Date(randTime);
-// };
-
-// const randomDateStr = (date) => {
-//     const year = date.getFullYear();
-//     const month = (date.getMonth() + 1).toString().padStart(2, "0");
-//     const day = date.getDate().toString().padStart(2, "0");
-//     return `${year}-${month}-${day}`;
-// };
 
 const getAge = (bod) => {
     const bornYear = bod.getFullYear();

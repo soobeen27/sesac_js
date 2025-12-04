@@ -1,4 +1,4 @@
-const randomValueFrom = require("./random-value-from");
+const randomValueFrom = require("./randomValueFrom");
 
 const randomAddress = () => {
     const randCity = randomValueFrom(cities);

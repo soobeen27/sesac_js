@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 
-const { randomDate, randomDateTimeStr } = require("./random-date");
-const randomValueFrom = require("./random-value-from");
+const { randomDate, randomDateTimeStr } = require("./utils/randomDate");
+const randomValueFrom = require("./utils/randomValueFrom");
 
 const generateOrders = (count, userIDs, storeIDs) => {
     let orders = [];
@@ -19,8 +19,8 @@ const generateOrder = (userID, storeID) => {
         orderAt: randomDateTimeStr(
             randomDate(new Date(2024, 0, 1), new Date(2025, 12, 1))
         ),
-        storeID: storeID,
-        userID: userID,
+        storeid: storeID,
+        userid: userID,
     };
 };
 

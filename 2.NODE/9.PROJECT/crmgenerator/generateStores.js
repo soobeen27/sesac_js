@@ -1,6 +1,6 @@
 const crypto = require("crypto");
-const randomValueFrom = require("./random-value-from");
-const randomAddress = require("./random-address");
+const randomValueFrom = require("./utils/randomValueFrom");
+const randomAddress = require("./utils/randomAddress");
 
 const generateStores = (count) => {
     let stores = [];
