@@ -1,0 +1,46 @@
+const crypto = require("crypto");
+
+const itemSource = {
+    Coffee: {
+        Americano: 3000,
+        Latte: 4000,
+        Espresso: 2500,
+        Cappuccino: 4500,
+        Mocha: 5000,
+    },
+    Juice: {
+        Orange: 2000,
+        Apple: 2500,
+        Grape: 3000,
+        Pineapple: 3500,
+        Watermelon: 4000,
+    },
+    Cake: {
+        Chocolate: 6000,
+        Strawberry: 5500,
+        Vanilla: 5000,
+        "Red Velvet": 6500,
+        Carrot: 6000,
+    },
+};
+
+const itemTransform = (itemObj) => {
+    let items = [];
+    for (let type in itemObj) {
+        for (let name in itemObj[type]) {
+            items.push({
+                id: crypto.randomUUID(),
+                name: name,
+                type: type,
+                price: itemObj[type][name],
+            });
+        }
+    }
+    return items;
+};
+
+const getItems = () => {
+    return itemTransform(itemSource);
+};
+
+module.exports = getItems;
