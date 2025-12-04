@@ -1,9 +1,9 @@
 const writeCvsAutoHead = require("./utils/writeCvsAutohead");
-const generateUsers = require("./generateUsers");
-const generateStores = require("./generateStores");
-const getItems = require("./getItems");
-const generateOrders = require("./generateOrders");
-const generateOrderItems = require("./generateOrderItems");
+const generateUsers = require("./generators/generateUsers");
+const generateStores = require("./generators/generateStores");
+const getItems = require("./generators/getItems");
+const generateOrders = require("./generators/generateOrders");
+const generateOrderItems = require("./generators/generateOrderItems");
 
 const users = generateUsers(100);
 const stores = generateStores(100);

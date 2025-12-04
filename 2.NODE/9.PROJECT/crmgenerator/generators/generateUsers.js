@@ -1,6 +1,6 @@
-const randomAddress = require("./utils/randomAddress");
-const randomValueFrom = require("./utils/randomValueFrom");
-const { randomDate, randomDateStr } = require("./utils/randomDate");
+const randomAddress = require("../utils/randomAddress");
+const randomValueFrom = require("../utils/randomValueFrom");
+const { randomDate, randomDateStr } = require("../utils/randomDate");
 
 const crypto = require("crypto");
 

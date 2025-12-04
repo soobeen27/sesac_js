@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 
-const randomValueFrom = require("./utils/randomValueFrom");
+const randomValueFrom = require("../utils/randomValueFrom");
 
 const generateOrderItems = (count, orderIDs, itemIDs) => {
     let orders = [];
