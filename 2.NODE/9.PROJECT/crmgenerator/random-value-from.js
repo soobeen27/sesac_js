@@ -1,5 +1,5 @@
-function randomValueFrom(array) {
+const randomValueFrom = (array) => {
     return array[Math.floor(Math.random() * array.length)];
-}
+};
 
 module.exports = randomValueFrom;
