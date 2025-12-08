@@ -1,16 +1,16 @@
 id,name,type,price
-e746cb37-b5fe-4a38-8410-caf6a73bc6b9,Americano,Coffee,3000
-e876fb2f-f5b2-449e-96ac-49a0fa026ac3,Latte,Coffee,4000
-d031b1ee-59a3-4b0b-8944-8d8d999ac071,Espresso,Coffee,2500
-1d429449-ccd9-4d24-908d-89c3c4445aa9,Cappuccino,Coffee,4500
-823681b0-a957-4b32-9554-2e02713b3d40,Mocha,Coffee,5000
-e080685e-3050-4906-ad48-d9ed6a35b586,Orange,Juice,2000
-ac455e04-2d99-4979-bba1-3deffdd07ee8,Apple,Juice,2500
-9855af7b-751f-45df-a064-d299033ee60f,Grape,Juice,3000
-6d85b0dd-0423-4da1-a35c-701228f106dd,Pineapple,Juice,3500
-cc3fdff3-5cd8-4beb-b3ee-3caa0a77fb11,Watermelon,Juice,4000
-b4f227b4-4fa3-40b3-9df0-38eadfa8ce55,Chocolate,Cake,6000
-a800eac3-1aaf-4dbd-a2d9-1bda719b4858,Strawberry,Cake,5500
-fc5cfeae-9749-46f3-93b2-489d929d0870,Vanilla,Cake,5000
-c8e1631c-1631-4348-b21a-d18da8f07f04,Red Velvet,Cake,6500
-21fe0905-ad65-424d-8ac4-bbb736512a95,Carrot,Cake,6000
+924fe0c5-7173-4147-aeee-4b4531d6162c,Americano,Coffee,3000
+628db3f2-2b23-45f6-b152-0a64c3287758,Latte,Coffee,4000
+f6df49fd-29b6-4c69-b084-83a977b46587,Espresso,Coffee,2500
+91c2c4d9-8173-4317-bd46-3cad2687fdc4,Cappuccino,Coffee,4500
+575f35a5-80c8-4e5f-903b-2b08949a3bf9,Mocha,Coffee,5000
+c3aefa0a-738f-472e-8508-84290fbb604a,Orange,Juice,2000
+a8849de2-5765-4b12-8358-dedd8f4d87c4,Apple,Juice,2500
+6f1ffef1-67a5-4004-a4cd-6b6270d184f5,Grape,Juice,3000
+bea06eda-be15-449e-9c95-48eefd6abff7,Pineapple,Juice,3500
+a539a5be-fc9d-4d0d-b883-70ff9a6d79f5,Watermelon,Juice,4000
+49113d83-e1ca-4909-bd7a-ee7866c49ca3,Chocolate,Cake,6000
+603e5937-56d3-4c0e-a508-e9e7d1e3256a,Strawberry,Cake,5500
+a8a29a94-57a3-4653-bd67-1901c1022289,Vanilla,Cake,5000
+0c3ad3b2-2b76-4d4a-81cb-24327b098b22,Red Velvet,Cake,6500
+f0a010b5-9e9b-44a1-9f08-8806b3946aea,Carrot,Cake,6000
