@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>착한 아저씨 사이트에 crud 해보기</h1>
+        <div>
+            <h3>post 생성하기</h3>
+            <button id="create-post">post 생성</button>
+            <h3>post 조회</h3>
+            <button id="read-post">post 조회</button>
+            <h3>post 수정하기</h3>
+            <input id="update-id" type="text" placeholder="수정할 id" />
+            <button id="update-post">post 수정</button>
+            <h3>post 삭제하기</h3>
+            <input id="delete-id" type="text" placeholder="삭제할 id" />
+            <button id="delete-post">post 생성</button>
+        </div>
+        <div>
+            <h3>공통 결과 출력</h3>
+            <div id="result"></div>
+        </div>
+        <script>
+            const requestURL = 'https://jsonplaceholder.typicode.com/posts';
+            const nwError = new Error('네트워크 에러');
+            document.getElementById('create-post').addEventListener('click', () => {
+                const myUser = {
+                    title: 'sesac',
+                    body: 'seoul',
+                    userId: 1,
+                };
+                fetch(requestURL, {
+                    method: 'POST',
+                    headers: { 'Content-type': 'application/json; charset=UTF-8' },
+                    body: JSON.stringify(myUser),
+                })
+                    .then(checkResponseStatus)
+                    .then(setResultFrom)
+                    .catch((err) => alert(err));
+            });
+
+            document.getElementById('read-post').addEventListener('click', () => {
+                fetch(requestURL)
+                    .then(checkResponseStatus)
+                    .then(setResultFrom)
+                    .catch((err) => alert(err));
+            });
+
+            document.getElementById('update-post').addEventListener('click', () => {
+                const updateID = document.getElementById('update-id').value;
+                const myUser = {
+                    title: 'sesac2',
+                    body: 'seoul2',
+                    userId: 1,
+                };
+                fetch(`${requestURL}/${updateID}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(myUser),
+                    headers: { 'Content-type': 'application/json; charset=UTF-8' },
+                })
+                    .then(checkResponseStatus)
+                    .then(setResultFrom)
+                    .catch((err) => alert(err));
+            });
+
+            document.getElementById('delete-post').addEventListener('click', () => {
+                const deleteID = document.getElementById('delete-id').value;
+                fetch(`${requestURL}/${deleteID}`, {
+                    method: 'DELETE',
+                })
+                    .then(checkResponseStatus)
+                    .then(setResultFrom);
+            });
+
+            function checkResponseStatus(response) {
+                if (!response.ok) throw nwError;
+                return response.json();
+            }
+
+            function setResultFrom(data) {
+                console.log(data);
+                document.getElementById('result').innerText = JSON.stringify(data);
+            }
+        </script>
+    </body>
+</html>

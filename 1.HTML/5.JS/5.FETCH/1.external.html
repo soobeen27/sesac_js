@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>남에게 정보 요청하기</h1>
+        <div id="result"></div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                fetch('https://api.github.cm/')
+                    .then((resp) => {
+                        if (!resp.ok) {
+                            throw new Error('NW 요청 실패');
+                        }
+                        return resp.json();
+                    })
+                    .then((data) => {
+                        document.getElementById(
+                            'result'
+                        ).innerHTML = `<p><strong> 현재 사용자 유알엘 </strong>${data['current_user_url']}</p> 
+                        <p><strong> 코드 검색 url </strong>${data['code_search_url']}</p>`;
+                    })
+                    .catch((e) => {
+                        document.getElementById('result').innerHTML = '<p style="color:red"> 데이터 요청 실패 </p>';
+                    });
+            });
+        </script>
+    </body>
+</html>
