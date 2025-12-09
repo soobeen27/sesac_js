@@ -1,34 +1,38 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
-const basePath = "./";
+function printTree(currentPath, prefix) {
+    let files = [];
 
-fs.readdir(basePath, (err, files) => {
-    if (err) {
+    try {
+        files = fs.readdirSync(currentPath);
+    } catch (err) {
         console.log(err);
-        console.log("디렉터리 읽기 실패");
-        return;
     }
 
-    files.sort().forEach((file) => {
-        const filePath = path.join(basePath, file);
-        checkFile(filePath);
+    files.sort((a, b) => {
+        return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
     });
-});
 
-function checkFile(filePath) {
-    fs.stat(filePath, (err, stats) => {
-        if (err) {
+    files.forEach((file, index) => {
+        const isLast = index === files.length - 1; // 현재 폴더 안에서 마지막 항목인가?
+        const fullPath = path.join(currentPath, file);
+
+        const pointer = isLast ? '└── ' : '├── ';
+
+        console.log(`${prefix}${pointer}${file}`);
+
+        try {
+            const stats = fs.statSync(fullPath);
+            if (stats.isDirectory()) {
+                const nextPrefix = prefix + (isLast ? '    ' : '│   ');
+
+                printTree(fullPath, nextPrefix);
+            }
+        } catch (err) {
             console.log(err);
-            return;
-        }
-
-        if (stats.isFile()) {
-            console.log(`├── ${filePath}`);
-        } else if (stats.isDirectory()) {
-            console.log(`├── ${filePath}`);
-        } else {
-            console.log("뭔지 모르겠음");
         }
     });
 }
+const basePath = './';
+printTree(basePath, '');
