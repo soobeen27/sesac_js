@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
         <h1>착한 아저씨 사이트에 crud 해보기</h1>
@@ -26,30 +27,45 @@
             <div id="result"></div>
         </div>
         <script>
-            const requestURL = 'https://jsonplaceholder.typicode.com/posts';
+            // const requestURL = 'https://jsonplaceholder.typicode.com/posts';
             const nwError = new Error('네트워크 에러');
 
+            const api = axios.create({
+                baseURL: 'https://jsonplaceholder.typicode.com/posts',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
             async function readPost() {
-                const myUser = {
-                    title: 'sesac',
-                    body: 'seoul',
-                    userId: 1,
-                };
                 try {
-                    const response = await fetch(`${requestURL}/${inputReadID.value}`);
-                    const data = await checkResponseStatus(response);
+                    const response = await api.get(`/${inputReadID.value}`);
+                    const data = response.data;
                     setResultFrom(data);
                 } catch (e) {
                     console.log(e);
                 }
             }
 
-            document.getElementById('create-post').addEventListener('click', () => {
-                readPost();
+            document.getElementById('create-post').addEventListener('click', async () => {
+                const myUser = {
+                    title: 'sesac',
+                    body: 'seoul',
+                    userId: 1,
+                };
+                try {
+                    const response = await api.post('', myUser);
+                    const data = response.data;
+                    setResultFrom(data);
+                } catch (e) {
+                    console.log(e);
+                }
             });
 
             const inputReadID = document.getElementById('input-read-id');
-            inputReadID.addEventListener('input', () => {});
+            inputReadID.addEventListener('input', () => {
+                readPost();
+            });
             const readPrevBtn = document.getElementById('prev-btn');
             readPrevBtn.addEventListener('click', () => {
                 if (!inputReadID.value) return;
@@ -73,12 +89,8 @@
                     userId: 1,
                 };
                 try {
-                    const response = await fetch(`${requestURL}/${updateID}`, {
-                        method: 'PUT',
-                        body: JSON.stringify(myUser),
-                        headers: { 'Content-type': 'application/json; charset=UTF-8' },
-                    });
-                    const data = await checkResponseStatus(response);
+                    const response = await api.put(`/${updateID}`, myUser);
+                    const data = response.data;
                     setResultFrom(data);
                 } catch (e) {
                     console.log(e);
@@ -88,20 +100,13 @@
             document.getElementById('delete-post').addEventListener('click', async () => {
                 const deleteID = document.getElementById('delete-id').value;
                 try {
-                    const response = await fetch(`${requestURL}/${deleteID}`, {
-                        method: 'DELETE',
-                    });
-                    const data = await checkResponseStatus(response);
+                    const response2 = await api.delete(`/${deleteID}`);
+                    const data = response.data;
                     setResultFrom(data);
                 } catch (e) {
                     console.log(e);
                 }
             });
-
-            function checkResponseStatus(response) {
-                if (!response.ok) throw nwError;
-                return response.json();
-            }
 
             function setResultFrom(data) {
                 console.log(data);
