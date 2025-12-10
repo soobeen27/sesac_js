@@ -14,10 +14,13 @@
             document.getElementById('load-content').addEventListener('click', async () => {
                 const userId = document.getElementById('user-id').value;
                 const requestURL = `https://jsonplaceholder.typicode.com/users/${userId}`;
-                fetch(requestURL)
-                    .then(checkResponseStatus)
-                    .then(renderResponseToResult)
-                    .catch((err) => alert(err));
+                try {
+                    const response = await fetch(requestURL);
+                    const data = await checkResponseStatus(response);
+                    renderResponseToResult(data);
+                } catch (e) {
+                    alert(e);
+                }
             });
 
             function checkResponseStatus(response) {

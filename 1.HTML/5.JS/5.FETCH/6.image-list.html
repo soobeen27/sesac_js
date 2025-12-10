@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dog CEO</title>
+    </head>
+    <body>
+        <h1>Random Dog Breed Image</h1>
+        <span>Choose a breed:</span>
+        <select id="select-breed"></select>
+        <span>Choose a sub-breed</span>
+        <select id="select-sub-breed"></select>
+        <button id="fetch-btn">Fetch Image</button>
+        <div id="img-container"></div>
+        <script>
+            const selectBreed = document.getElementById('select-breed');
+            const selectSubBreed = document.getElementById('select-sub-breed');
+            let breedObj = {};
+
+            const fetchBreeds = () => {
+                return new Promise((res, rej) => {
+                    fetch('https://dog.ceo/api/breeds/list/all')
+                        .then((res) => res.json())
+                        .then((data) => {
+                            res(data.message);
+                        })
+                        .catch((e) => res(e));
+                });
+            };
+
+            const getImgURLBy = (breed, subBreed) => {
+                const url =
+                    subBreed === ''
+                        ? `https://dog.ceo/api/breed/${breed}/images/random`
+                        : `https://dog.ceo/api/breed/${breed}/${subBreed}/images/random`;
+                return new Promise((res, rej) => {
+                    fetch(url)
+                        .then((res) => res.json())
+                        .then((data) => {
+                            res(data.message);
+                        })
+                        .catch((e) => res(e));
+                });
+            };
+
+            const setBreedSelect = (breeds) => {
+                breeds.forEach((breed) => {
+                    const opt = document.createElement('option');
+                    opt.textContent = breed;
+                    selectBreed.appendChild(opt);
+                });
+            };
+
+            const setSubBreedSelect = async (breed, breedObj) => {
+                selectSubBreed.innerHTML = '';
+                breedObj[breed].forEach((subbreed) => {
+                    const opt = document.createElement('option');
+                    opt.textContent = subbreed;
+                    selectSubBreed.appendChild(opt);
+                });
+            };
+
+            const init = async () => {
+                try {
+                    breedObj = await fetchBreeds();
+                    const breeds = Object.keys(breedObj);
+                    setBreedSelect(breeds);
+                    setSubBreedSelect(selectBreed.value, breedObj);
+                } catch (e) {
+                    console.log(e);
+                }
+            };
+
+            document.getElementById('fetch-btn').addEventListener('click', async () => {
+                try {
+                    const url = await getImgURLBy(selectBreed.value, selectSubBreed.value);
+                    const imgContainer = document.getElementById('img-container');
+                    imgContainer.innerHTML = `<img src="${url}" style="width: 200px">`;
+                } catch (e) {
+                    console.log(e);
+                }
+            });
+
+            selectBreed.addEventListener('change', () => {
+                setSubBreedSelect(selectBreed.value, breedObj);
+            });
+
+            init();
+        </script>
+    </body>
+</html>

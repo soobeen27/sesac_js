@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <h2>남에게 요청해서 정보 받아와서 표현하기</h2>
+        <button id="load-content">불러오기</button>
+        <div id="result"></div>
+        <script>
+            document.getElementById('load-content').addEventListener('click', async () => {
+                try {
+                    const res = await axios.get('https://jsonplaceholder.typicode.com/posts/1');
+                    const data = res.data;
+                    document.getElementById('result').innerHTML = `
+                        <p><strong>타이틀</strong>${data.title}</p>
+                        <p><strong>바디</strong>${data.body}</p>`;
+                } catch (e) {
+                    console.log(`err : ${e}`);
+                }
+            });
+        </script>
+    </body>
+</html>

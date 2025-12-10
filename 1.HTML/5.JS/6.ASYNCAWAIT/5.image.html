@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dog CEO</title>
+    </head>
+    <body>
+        <h1>강아지 사진 불러오기</h1>
+        <button id="fetch-btn">사진 가져오기</button>
+        <div id="img-container"></div>
+        <script>
+            function simpleStyle() {
+                document.getElementById('fetch-btn').addEventListener('click', async () => {
+                    try {
+                        const res = await fetch('https://dog.ceo/api/breeds/image/random');
+                        const data = await res.json();
+                        const imgContainer = document.getElementById('img-container');
+                        imgContainer.innerHTML = `<img src="${data.message}" style="max-width: 100%;">`;
+                    } catch (e) {
+                        console.log(e);
+                    }
+                });
+            }
+            simpleStyle();
+        </script>
+    </body>
+</html>
