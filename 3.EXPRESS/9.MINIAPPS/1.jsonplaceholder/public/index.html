@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>EXPRESS CRUD</h1>
+            <div id="json-wrap">
+                <button id="post-all">모두보기</button>
+                <div id="json-container"></div>
+            </div>
+            <div class="method-container get">
+                <h2>GET</h2>
+                <input id="get-input-post-id" type="number" placeholder="포스트 아이디 입력" />
+                <button id="get-post-btn">GET</button>
+            </div>
+            <div class="method-container put">
+                <h2>PUT</h2>
+                <input id="put-input-post-id" type="number" placeholder="포스트 아이디 입력" />
+                <input id="put-input-post-title" type="text" placeholder="포스트 타이틀 입력" />
+                <input id="put-input-post-body" type="text" placeholder="포스트 바디 입력" />
+                <button id="put-post-btn">PUT</button>
+            </div>
+            <div class="method-container delete">
+                <h2>DELETE</h2>
+                <input id="delete-input-post-id" type="number" placeholder="포스트 아이디 입력" />
+                <button id="delete-post-btn">DELETE</button>
+            </div>
+            <div class="method-container post">
+                <h2>POST</h2>
+                <input id="post-input-post-id" type="number" placeholder="포스트 아이디 입력" />
+                <input id="post-input-post-title" type="text" placeholder="포스트 타이틀 입력" />
+                <input id="post-input-post-body" type="text" placeholder="포스트 바디 입력" />
+                <button id="post-post-btn">POST</button>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
