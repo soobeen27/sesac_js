@@ -1,0 +1,13 @@
+#result {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item {
+    height: 60px;
+    background-color: lightcyan;
+    border: 1px solid lightblue;
+    padding: 10px;
+    border-radius: 10px;
+}
