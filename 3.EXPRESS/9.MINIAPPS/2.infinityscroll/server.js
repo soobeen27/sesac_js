@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 const PORT = 3000;
 
-const data = Array.from({ length: 10 }, (_, i) => `Item ${i + 1}`);
+const data = Array.from({ length: 100 }, (_, i) => `Item ${i + 1}`);
 // 미들웨어
 app.use(express.static('public'));
+app.use(morgan('dev'));
 
 function getRandomIncrease() {
     return Math.floor(Math.random() * 21);
@@ -16,7 +18,6 @@ setInterval(() => {
     for (let i = 0; i < randNum; i++) {
         data.push(`Item ${currentLength + i + 1}`);
     }
-    console.log('add');
 }, 10_000);
 
 // 0 미들웨어로 시간, method, url path 찍어보기
