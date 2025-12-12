@@ -8,7 +8,7 @@ const result = document.getElementById('result');
 async function getItemsFromTo(s, e, topbottom) {
     if (isLoading) return;
     isLoading = true;
-    console.log(`start: ${s} end: ${e}`);
+    // console.log(`start: ${s} end: ${e}`);
 
     try {
         const res = await fetch(`/api/items?start=${s}&end=${e}`);
@@ -65,6 +65,7 @@ function removeFirst(itemsToRemove) {
             result.removeChild(result.firstElementChild);
         }
     }
+    console.log('화면끝');
     // window.scrollTo(0, window.scrollY - removedHeight);
     window.scrollTo(0, document.documentElement.scrollTop - removedHeight);
 }
@@ -72,6 +73,9 @@ function removeFirst(itemsToRemove) {
 function removeLast(itemsToRemove) {
     for (let i = 0; i < itemsToRemove; i++) {
         result.removeChild(result.lastElementChild);
+    }
+    if (end - start >= maxItemsOnScreen) {
+        end = start + maxItemsOnScreen;
     }
 }
 
@@ -90,10 +94,10 @@ window.addEventListener('scroll', async () => {
 
     // if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
     if (scrollTop + clientHeight >= scrollHeight) {
-        console.log('화면끝');
         const nextEnd = end + itemsPerLoad;
         await getItemsFromTo(end, nextEnd, 'bottom');
         end = nextEnd;
+        console.log(`start: ${start}, end: ${end}`);
     }
     // if (window.scrollY <= 10) {
     if (scrollTop <= 10) {
@@ -103,5 +107,6 @@ window.addEventListener('scroll', async () => {
             await getItemsFromTo(nextStart, start, 'top');
             start = nextStart;
         }
+        console.log(`start: ${start}, end: ${end}`);
     }
 });
