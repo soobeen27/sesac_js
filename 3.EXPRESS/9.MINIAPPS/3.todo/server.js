@@ -30,16 +30,22 @@ app.put('/api/todo/:id', (req, res) => {
     console.log('todo 수정 요청');
     const id = parseInt(req.params.id);
     const index = todos.findIndex((el) => el.id === id);
+    if (index === -1) {
+        return res.status(404).json({ message: '해당 id 찾을수 없음' });
+    }
     todos[index].done = !todos[index].done;
-    res.json({ message: 'put successed' });
+    res.json(todos[index]);
 });
 
 app.delete('/api/todo/:id', (req, res) => {
     console.log('todo 삭제요청');
     const id = parseInt(req.params.id);
     const index = todos.findIndex((el) => el.id === id);
+    if (index === -1) {
+        return res.status(404).json({ message: '해당 id 찾을수 없음' });
+    }
     todos.splice(index, 1);
-    res.json({ message: 'delete successed' });
+    res.json({ id });
 });
 
 app.listen(PORT, () => {

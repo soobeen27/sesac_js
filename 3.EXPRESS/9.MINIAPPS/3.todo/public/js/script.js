@@ -1,25 +1,47 @@
-const getTodos = (callback) => {
-    fetch('/api/todo')
-        .then((res) => {
-            if (!res.ok) throw new Error('get: todo/api 실패');
-            return res.json();
-        })
-        .then((data) => {
-            callback(data);
-        })
-        .catch((e) => console.log(e));
-};
+import TodoManager from './TodoManager.js';
 
-const drawTodos = (data) => {
+const drawTodos = (todos) => {
     const todoList = document.querySelector('#todo-list');
-    data.forEach((el) => {
-        const li = document.createElement('li');
-        li.innerText = el.message;
-        console.log(typeof el.message);
-        todoList.appendChild(li);
+    todoList.innerText = '';
+    todos.forEach((todo) => {
+        const deleteBtn = document.createElement('button');
+        const todoListLi = document.createElement('li');
+
+        deleteBtn.classList.add('list-item-delete-btn');
+        todoListLi.classList.add('list-item-li');
+        todoListLi.innerText = todo.message;
+        todoListLi.dataset.id = todo.id;
+        deleteBtn.innerText = '삭제';
+
+        if (todo.done) {
+            todoListLi.classList.add('done');
+        } else {
+            todoList.classList.remove('done');
+        }
+
+        todoListLi.appendChild(deleteBtn);
+        todoList.appendChild(todoListLi);
     });
 };
+const todoList = document.querySelector('#todo-list');
+const todoManager = new TodoManager(todoList);
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('dom loading done');
-    getTodos(drawTodos);
+    todoManager.getTodo();
+    todoManager.subscribe(drawTodos);
+});
+
+document.querySelector('#add-todo').addEventListener('click', () => {
+    const value = document.querySelector('#new-todo').value;
+    todoManager.postTodo(value);
+});
+
+document.querySelector('#todo-list').addEventListener('click', (ev) => {
+    const li = ev.target.closest('li');
+    if (!li) return;
+    const id = li.dataset.id;
+    if (ev.target.closest('button')) {
+        todoManager.deleteTodo(id);
+        return;
+    }
+    todoManager.putTodo(id);
 });
