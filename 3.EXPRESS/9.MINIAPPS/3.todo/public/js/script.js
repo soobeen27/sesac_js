@@ -32,7 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.querySelector('#add-todo').addEventListener('click', () => {
     const value = document.querySelector('#new-todo').value;
-    todoManager.postTodo(value);
+    const text = value.trim();
+    if (!text) return;
+    todoManager.postTodo(text);
 });
 
 document.querySelector('#todo-list').addEventListener('click', (ev) => {
