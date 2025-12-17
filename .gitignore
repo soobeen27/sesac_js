@@ -8,3 +8,9 @@
 
 #node 모듈 제외
 node_modules/
+
+#db 파일
+*.db
+*.sqlite
+*.sqlite3
+*.csv
