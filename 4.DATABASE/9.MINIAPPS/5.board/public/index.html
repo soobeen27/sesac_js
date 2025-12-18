@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+        <title>Document</title>
+        <style>
+            * {
+                font-family: 'Open Sans', sans-serif;
+            }
+            .wrap {
+                margin: auto;
+                width: 900px;
+            }
+            .input-container {
+                padding: 20px;
+                background-color: #dedede;
+            }
+            .form-group {
+                margin: 10px;
+                width: 90%;
+            }
+            .card-id {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="input-container">
+                <div class="form-group">
+                    <h1>메모장</h1>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" id="input-title" type="text" placeholder="제목을 입력하세요" />
+                </div>
+                <div class="form-group">
+                    <input class="form-control" id="input-text" type="text" placeholder="내용을 입력하세요" />
+                </div>
+                <div class="form-group">
+                    <button onclick="uploadPost()" class="btn btn-primary">저장하기</button>
+                </div>
+            </div>
+            <!-- 결과 보여주는곳 -->
+            <div id="card-list" class="row`"></div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
