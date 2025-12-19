@@ -31,13 +31,13 @@ function newCard(id, title, message) {
     // card.appendChild(cardTitle);
     // card.appendChild(cardMessage);
     card.innerHTML = `
-        <div class="card mb-4" id="card_${id}">
+        <div class="card" id="card_${id}">
             <div class="card-body">
                 <p class="card-id">${id}</p>
                 <p class="card-title">${title}</p>
                 <p class="card-text">${message}</p>
                 <button class="btn btn-info" onclick="modifyPost(${id})">수정</button>
-                <button class="btn btn-info" onclick="deletePost(${id})">삭제</button>
+                <button class="btn btn-danger" onclick="deletePost(${id})">삭제</button>
             </div>
         </div>
     `;
