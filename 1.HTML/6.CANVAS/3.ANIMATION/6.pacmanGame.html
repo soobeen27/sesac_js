@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body {
+                background-color: black;
+            }
+            canvas {
+                border: 1px solid white;
+            }
+            span {
+                color: white;
+            }
+            #score-text {
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="score-text">score: <span id="score"></span></div>
+        <canvas id="pacman" width="600" , height="400"></canvas>
+        <script>
+            const canvas = document.getElementById('pacman');
+            const context = canvas.getContext('2d');
+
+            const pacman = {
+                x: 200,
+                y: 200,
+                directionX: 0,
+                directionY: 0,
+                direction: 'right',
+                size: 30,
+                startAngle: 0.2 * Math.PI,
+                endAngle: 1.8 * Math.PI,
+                angle: {
+                    up: {
+                        startAngle: 1.7 * Math.PI,
+                        endAngle: 1.3 * Math.PI,
+                        minStartAngle: 1.55 * Math.PI,
+                        maxStartAngle: 1.75 * Math.PI,
+                    },
+                    down: {
+                        startAngle: 0.7 * Math.PI,
+                        endAngle: 0.3 * Math.PI,
+                        minStartAngle: 0.55 * Math.PI,
+                        maxStartAngle: 0.75 * Math.PI,
+                    },
+                    left: {
+                        startAngle: 1.2 * Math.PI,
+                        endAngle: 0.8 * Math.PI,
+                        minStartAngle: 1.05 * Math.PI,
+                        maxStartAngle: 1.25 * Math.PI,
+                    },
+                    right: {
+                        startAngle: 0.2 * Math.PI,
+                        endAngle: 1.8 * Math.PI,
+                        minStartAngle: 0.05 * Math.PI,
+                        maxStartAngle: 0.25 * Math.PI,
+                    },
+                },
+                mouthOpen: 1,
+                mouthSpeed: 0.05,
+                moveSpeed: 3,
+            };
+
+            let foods = [];
+
+            function clearScreen() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+            }
+
+            function drawPacman() {
+                context.beginPath();
+                context.moveTo(pacman.x, pacman.y);
+                context.arc(
+                    pacman.x,
+                    pacman.y,
+                    pacman.size,
+                    pacman.angle[pacman.direction].startAngle,
+                    pacman.angle[pacman.direction].endAngle
+                );
+                context.fillStyle = 'yellow';
+                context.fill();
+                context.closePath();
+            }
+
+            function updateMouth() {
+                let startAngle = pacman.angle[pacman.direction].startAngle;
+                let endAngle = pacman.angle[pacman.direction].endAngle;
+                const minStartAngle = pacman.angle[pacman.direction].minStartAngle;
+                const maxStartAngle = pacman.angle[pacman.direction].maxStartAngle;
+
+                if (startAngle <= minStartAngle || startAngle >= maxStartAngle) {
+                    pacman.mouthOpen *= -1;
+                }
+
+                pacman.angle[pacman.direction].startAngle += pacman.mouthSpeed * pacman.mouthOpen;
+                pacman.angle[pacman.direction].endAngle -= pacman.mouthSpeed * pacman.mouthOpen;
+            }
+
+            function updatePostion() {
+                pacman.x += pacman.moveSpeed * pacman.directionX;
+                pacman.y += pacman.moveSpeed * pacman.directionY;
+
+                if (pacman.x + pacman.size > canvas.width) pacman.x = pacman.size;
+                if (pacman.x - pacman.size < 0) pacman.x = canvas.width - pacman.size;
+                if (pacman.y + pacman.size > canvas.height) pacman.y = pacman.size;
+                if (pacman.y - pacman.size < 0) pacman.y = canvas.height - pacman.size;
+            }
+
+            function pacmanMovementHandler(key) {
+                switch (key) {
+                    case 'ArrowRight':
+                        pacman.directionX = 1;
+                        pacman.directionY = 0;
+                        pacman.direction = 'right';
+                        break;
+                    case 'ArrowLeft':
+                        pacman.directionX = -1;
+                        pacman.directionY = 0;
+                        pacman.direction = 'left';
+                        break;
+                    case 'ArrowUp':
+                        pacman.directionY = -1;
+                        pacman.directionX = 0;
+                        pacman.direction = 'up';
+                        break;
+                    case 'ArrowDown':
+                        pacman.directionY = 1;
+                        pacman.directionX = 0;
+                        pacman.direction = 'down';
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            document.addEventListener('keydown', (ev) => {
+                pacmanMovementHandler(ev.key);
+            });
+
+            function generateFood() {
+                for (let i = 0; i < 10; i++) {
+                    const food = {
+                        x: Math.random() * (canvas.width - 30) + 20,
+                        y: Math.random() * (canvas.height - 30) + 20,
+                        radius: 10,
+                    };
+                    foods.push(food);
+                }
+            }
+
+            function drawFood() {
+                foods.forEach((food) => {
+                    context.beginPath();
+                    context.arc(food.x, food.y, food.radius, 0, 2 * Math.PI);
+                    context.fillStyle = 'white';
+                    context.fill();
+                    context.closePath();
+                });
+            }
+
+            let score = 0;
+            const scoreEl = document.getElementById('score');
+            function checkFoodEatten() {
+                foods.forEach((food, index) => {
+                    const x = food.x - pacman.x;
+                    const y = food.y - pacman.y;
+                    const dist = Math.sqrt(x * x + y * y);
+                    if (dist < pacman.size) {
+                        foods.splice(index, 1);
+                        score += 10;
+                        scoreEl.innerText = score;
+                    }
+                });
+            }
+
+            function animatePacman() {
+                clearScreen();
+                drawFood();
+                drawPacman();
+                updateMouth();
+                updatePostion();
+                checkFoodEatten();
+                requestAnimationFrame(animatePacman);
+            }
+            generateFood();
+            animatePacman();
+        </script>
+    </body>
+</html>

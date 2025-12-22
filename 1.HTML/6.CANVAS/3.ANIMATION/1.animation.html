@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            canvas {
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="ani-canvas" width="400" , height="200"></canvas>
+        <script>
+            const canvas = document.getElementById('ani-canvas');
+            const context = canvas.getContext('2d');
+            let direction = 1;
+
+            let x = 0;
+
+            function draw() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.fillStyle = 'red';
+                context.fillRect(x, 50, 50, 50);
+
+                console.log(x);
+                if (x == canvas.width - 50) {
+                    // x -= 5;
+                    direction = -1;
+                } else if (x == 0) {
+                    direction = 1;
+                    // x += 5;
+                }
+                x += 5 * direction;
+                requestAnimationFrame(draw);
+            }
+            draw();
+        </script>
+    </body>
+</html>

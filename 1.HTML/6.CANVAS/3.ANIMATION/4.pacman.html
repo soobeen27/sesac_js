@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body {
+                background-color: black;
+            }
+            canvas {
+                border: 1px solid white;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="pacman" width="600" , height="400"></canvas>
+        <script>
+            const canvas = document.getElementById('pacman');
+            const context = canvas.getContext('2d');
+
+            let startAngle = 0.2 * Math.PI;
+            let endAngle = 1.8 * Math.PI;
+            let mouthOpen = 1;
+            let mouthSpeed = 0.05;
+            let positionX = 200;
+            let positionY = 200;
+            let pacmanSpeed = 1;
+            let directionX = 0;
+            let directionY = 0;
+            let pacmanSize = 30;
+
+            function drawPacman() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                context.beginPath();
+                context.moveTo(positionX, positionY);
+                context.arc(positionX, positionY, pacmanSize, startAngle, endAngle);
+                context.fillStyle = 'yellow';
+                context.fill();
+                context.closePath();
+            }
+
+            function updateMouth() {
+                if (startAngle <= 0 || startAngle >= 0.25 * Math.PI) {
+                    mouthOpen *= -1;
+                }
+                startAngle += mouthSpeed * mouthOpen;
+                endAngle -= mouthSpeed * mouthOpen;
+            }
+
+            function updatePostion() {
+                positionX += pacmanSpeed * directionX;
+                positionY += pacmanSpeed * directionY;
+
+                if (positionX + pacmanSize >= canvas.width) {
+                    positionX = canvas.width - pacmanSize;
+                }
+                if (positionX - pacmanSize <= 0) {
+                    positionX = pacmanSize;
+                }
+
+                if (positionY + pacmanSize >= canvas.height) {
+                    positionY = canvas.height - pacmanSize;
+                }
+
+                if (positionY - pacmanSize <= 0) {
+                    positionY = pacmanSize;
+                }
+            }
+
+            function animatePacman() {
+                drawPacman();
+                updateMouth();
+                updatePostion();
+                requestAnimationFrame(animatePacman);
+            }
+
+            animatePacman();
+
+            document.addEventListener('keydown', (ev) => {
+                switch (ev.key) {
+                    case 'ArrowRight':
+                        directionX = 1;
+                        directionY = 0;
+                        break;
+                    case 'ArrowLeft':
+                        directionX = -1;
+                        directionY = 0;
+                        break;
+                    case 'ArrowUp':
+                        directionY = -1;
+                        directionX = 0;
+                        break;
+                    case 'ArrowDown':
+                        directionY = 1;
+                        directionX = 0;
+                        break;
+                    default:
+                        break;
+                }
+            });
+        </script>
+    </body>
+</html>
