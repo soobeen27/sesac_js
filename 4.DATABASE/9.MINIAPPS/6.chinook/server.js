@@ -14,12 +14,21 @@ app.get('/', (req, res) => {
     res.sendFile(path.resolve('public/index.html'));
 });
 
-// curl "127.0.0.1:3000/api/tracks?limit=10&offset=0"
+// curl "127.0.0.1:3000/api/tracks?limit=10&offset=0&search=love"
 app.get('/api/tracks', (req, res) => {
     const { limit, offset } = req.query;
-    const limitQuery = db.prepare('SELECT * FROM tracks LIMIT ? OFFSET ?');
+    const { search } = req.query;
+    let limitQuery;
+    let tracks;
+    if (search) {
+        const searchWord = `%${search}%`;
+        limitQuery = db.prepare('SELECT * FROM tracks WHERE name LIKE ? LIMIT ? OFFSET ?');
+        tracks = limitQuery.all(searchWord, limit, offset);
+    } else {
+        limitQuery = db.prepare('SELECT * FROM tracks LIMIT ? OFFSET ?');
+        tracks = limitQuery.all(limit, offset);
+    }
     const count = db.prepare('SELECT COUNT(*) AS count FROM tracks').get();
-    const tracks = limitQuery.all(limit, offset);
     tracks.unshift(count);
     res.send(tracks);
 });

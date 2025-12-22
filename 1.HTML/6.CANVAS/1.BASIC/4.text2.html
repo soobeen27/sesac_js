@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            canvas {
+                border: 1px solid red;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="400" height="200"></canvas>
+        <script>
+            const ctx = document.getElementById('myCanvas').getContext('2d');
+
+            function drawText(x, y, text, font, style) {
+                ctx.font = font;
+                ctx.fillStyle = style;
+                ctx.fillText(text, x, y);
+            }
+
+            drawText(20, 40, 'Hello, Canvas!', '30px Arial', 'red');
+            drawText(20, 80, 'Hello, World!', '20px Times New Roman', 'blue');
+            drawText(20, 120, 'Good Morning!', '30px Arial', 'black');
+            drawText(20, 160, 'Guten Morgen!', 'italic 30px Arial', 'purple');
+            drawText(20, 200, 'Hello, Canvas', 'bold 20px Arial', 'red');
+        </script>
+    </body>
+</html>

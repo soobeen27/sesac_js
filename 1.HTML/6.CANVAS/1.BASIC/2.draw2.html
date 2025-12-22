@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            canvas {
+                border: 1px solid red;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="400" height="200"></canvas>
+        <script>
+            const ctx = document.getElementById('myCanvas').getContext('2d');
+
+            ctx.beginPath();
+            ctx.moveTo(300, 100);
+
+            const startAngle = 0.2 * Math.PI;
+            const endAngle = 1.8 * Math.PI;
+
+            ctx.arc(300, 100, 50, startAngle, endAngle);
+            ctx.lineTo(300, 100);
+            ctx.fillStyle = 'yellow';
+            ctx.fill();
+
+            ctx.strokeStyle = 'black';
+            ctx.stroke();
+
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.arc(75, 75, 50, 0, Math.PI * 2, true);
+
+            // ctx.closePath();
+
+            ctx.moveTo(65, 65);
+            // ctx.beginPath();
+            ctx.arc(60, 65, 5, 0, Math.PI * 2, true);
+            // ctx.stroke();
+            // ctx.closePath();
+
+            ctx.moveTo(95, 65);
+            // ctx.beginPath();
+            ctx.arc(90, 65, 5, 0, Math.PI * 2, true);
+            // ctx.stroke();
+            // ctx.closePath();
+
+            // ctx.beginPath();
+            ctx.moveTo(105, 80);
+            ctx.arc(75, 80, 30, 0, Math.PI);
+            ctx.stroke();
+            ctx.closePath();
+        </script>
+    </body>
+</html>

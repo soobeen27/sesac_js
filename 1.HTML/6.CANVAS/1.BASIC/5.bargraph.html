@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            canvas {
+                border: 1px solid red;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="barCanvas" width="400" height="200"></canvas>
+        <script>
+            const canvas = document.getElementById('barCanvas');
+            const ctx = canvas.getContext('2d');
+            const graphData = {
+                A: 10,
+                B: 20,
+                C: 40,
+                D: 60,
+                E: 80,
+            };
+
+            drawBarGraph(graphData);
+
+            function drawBarGraph(data) {
+                const barWidth = 30;
+                const barHeightOffset = 20;
+                let startX = 20;
+
+                for (const key in data) {
+                    const barHeight = data[key];
+                    ctx.fillStyle = 'blue';
+                    ctx.fillRect(startX, canvas.height - barHeight - barHeightOffset, barWidth, barHeight);
+
+                    ctx.fillStyle = 'black';
+                    ctx.fillText(key, startX + barWidth / 2, canvas.height - 10);
+
+                    startX += 40;
+                }
+            }
+        </script>
+    </body>
+</html>

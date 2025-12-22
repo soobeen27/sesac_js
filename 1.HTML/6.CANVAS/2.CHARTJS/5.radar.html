@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <div>
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+
+        <script>
+            const ctx = document.getElementById('myChart');
+
+            const data = {
+                labels: ['먹기', '잠자기', 'TV보기', '멍때리기', '운동하기'],
+                datasets: [
+                    {
+                        label: '나의 하루 일과',
+                        data: [40, 50, 70, 100, 30],
+                        backgroundColor: ['rgba(255, 99, 132, 0.5)'],
+                    },
+                ],
+            };
+            const config = {
+                type: 'radar',
+                data: data,
+                options: {
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            };
+            new Chart(ctx, config);
+        </script>
+    </body>
+</html>
