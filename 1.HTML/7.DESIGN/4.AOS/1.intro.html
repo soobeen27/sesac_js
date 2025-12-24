@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <style>
+            body {
+                height: 2000px;
+                padding: 50px;
+            }
+            .box {
+                margin: 100px 0;
+                padding: 40px;
+                background-color: antiquewhite;
+                border: 2px solid #ccc;
+                text-align: center;
+                font-size: 24px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>스크롤하면 등장하는 요소 라이브러리</h1>
+        <div class="box" data-aos="fade-up">1 box</div>
+        <div class="box" data-aos="fade-right">2 box</div>
+        <div class="box" data-aos="zoom-in">3 box</div>
+        <div class="box" data-aos="fade-left">4 box</div>
+        <div class="box" data-aos="zoom-out">5 box</div>
+        <div class="box" data-aos="flip-left">6 box</div>
+        <div class="box" data-aos="flip-right">7 box</div>
+        <!-- <div class="box" data-aos="zoom-in">8 box</div>
+        <div class="box" data-aos="zoom-in">9 box</div>
+        <div class="box" data-aos="zoom-in">10 box</div> -->
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init({
+                once: false,
+                offset: 120,
+                duration: 1000,
+                easing: 'ease-in-out',
+            });
+        </script>
+    </body>
+</html>

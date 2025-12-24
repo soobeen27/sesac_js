@@ -18,14 +18,6 @@ function initDatabase() {
     } catch (e) {
         console.log('이미 초기화됨');
     }
-    // db.transaction(() => {
-    //     for (const statement of statements) {
-    //         db.exec(statement);
-    //     }
-    // })(); //db.transaction 은 성공하면 commit, 실패하면 rollback
-    // for (const statement of statements) {
-    //     console.log(statement);
-    // }
 }
 
 initDatabase();

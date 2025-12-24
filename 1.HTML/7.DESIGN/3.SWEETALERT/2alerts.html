@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>sweet alert</h1>
+        <button onclick="basicAlert()">기본 성공</button>
+        <button onclick="successAlert()">성공 알림</button>
+        <button onclick="errorAlert()">에러 알림</button>
+        <button onclick="confirmAlert()">확인/취소</button>
+        <button onclick="timerAlert()">시간후 자동닫기</button>
+        <button onclick="inputAlert()">사용자 입력</button>
+        <button onclick="ajaxAlert()">비동기 요청 시뮬</button>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            function basicAlert() {
+                Swal.fire('안녕하세요!', '기본 알림 팝업', 'info');
+            }
+            function successAlert() {
+                Swal.fire({
+                    icon: 'success',
+                    title: '성공',
+                    text: '작업이 성공하였습니다',
+                    confirmButtonText: '좋아요',
+                });
+            }
+
+            function errorAlert() {
+                Swal.fire({
+                    icon: 'error',
+                    title: '오류 발생',
+                    text: '알수없는 오류가 발생',
+                    confirmButtonText: '네',
+                });
+            }
+
+            function confirmAlert() {
+                Swal.fire({
+                    title: '정말 삭제하겠습니까?',
+                    text: '이 작업은 되돌릴 수 없습니다.',
+                    icon: 'warning',
+                    showCancelButton: 'true',
+                    confirmButtonText: '삭제',
+                    cancelButtonText: '취소',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire('삭제 완료', '데이터 삭제가 완료됨', 'success');
+                    }
+                });
+            }
+
+            function timerAlert() {
+                Swal.fire({
+                    title: '자동으로 닫힙니다',
+                    text: '3초후에 닫힘.',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    willClose: () => {
+                        Swal.fire('펑');
+                    },
+                });
+            }
+
+            function inputAlert() {
+                Swal.fire({
+                    title: '이름을 입력하세요',
+                    input: 'text',
+                    showCancelButton: true,
+                    confirmButtonText: '제출',
+                    cancelButtonText: '취소',
+                }).then((result) => {
+                    if (result.isConfirmed && result.value) {
+                        swal.fire('입력 성공', `입력값: ${result.value}`);
+                    }
+                });
+            }
+
+            function ajaxAlert() {
+                Swal.fire({
+                    title: 'Submit your Github username',
+                    input: 'text',
+                    inputAttributes: {
+                        autocapitalize: 'off',
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Look up',
+                    showLoaderOnConfirm: true,
+                    preConfirm: async (login) => {
+                        try {
+                            const githubUrl = `https://api.github.com/users/${login}`;
+                            const response = await fetch(githubUrl);
+                            if (!response.ok) {
+                                return Swal.showValidationMessage(`${JSON.stringify(await response.json())}`);
+                            }
+                            return response.json();
+                        } catch (error) {
+                            Swal.showValidationMessage(`Request failed: ${error}`);
+                        }
+                    },
+                    allowOutsideClick: () => !Swal.isLoading(),
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: `${result.value.login}'s avatar`,
+                            imageUrl: result.value.avatar_url,
+                        });
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>
