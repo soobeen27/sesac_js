@@ -26,7 +26,7 @@ app.get('/api/users', (req, res) => {
     const { limit, offset } = req.query;
     const name = req.query.name || '';
     const queryCount = db.prepare('select count(*) as count from users where name like ?');
-    const count = queryCount.get([`%${name}%`]);
+    const count = queryCount.get([`%${name}%`]).count;
     const queryUsers = db.prepare('select * from users where name like ? limit ? offset ?');
     const data = queryUsers.all([`%${name}%`, limit, offset]);
     res.send({ count, data });

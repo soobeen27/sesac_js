@@ -5,6 +5,11 @@ export default class Table extends Component {
         this.state = this.props;
     }
 
+    setState(newState) {
+        this.state = newState;
+        this.render();
+    }
+
     template() {
         const headers = this._getHeader();
         const body = this._getBody();
