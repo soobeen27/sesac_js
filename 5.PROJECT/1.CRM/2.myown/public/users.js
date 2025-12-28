@@ -12,9 +12,17 @@ const fetchUsers = async (limit, offset, name) => {
     return data;
 };
 
+const setHlink = (data) => {
+    return Array.from(data).map((row) => {
+        const hyperlinkedID = `<a href="/users/detail/${row.id}">${row.id}</a>`;
+        row.id = hyperlinkedID;
+        return row;
+    });
+};
+
 const viewDidLoad = async () => {
     const data = await fetchUsers(limit, 0, '');
-    const table = new Table(document.querySelector('#table-container'), data.data);
+    const table = new Table(document.querySelector('#table-container'), setHlink(data.data));
     const pagination = new Pagination(document.querySelector('#pagination-container'), {
         count: data.count,
         limit,
@@ -23,16 +31,15 @@ const viewDidLoad = async () => {
 
     pagination.subscribe(async (limit, offset) => {
         const newData = await fetchUsers(limit, offset, searchText);
-        table.setState(newData.data);
+        table.setState(setHlink(newData.data));
     });
     searchBar.subscribe(async (st) => {
         searchText = st;
         console.log(searchText);
         const newData = await fetchUsers(limit, 0, searchText);
         console.log(newData);
-        table.setState(newData.data);
+        table.setState(setHlink(newData.data));
         pagination.setState({ count: newData.count });
     });
 };
-
 document.addEventListener('DOMContentLoaded', viewDidLoad);

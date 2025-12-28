@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'users.html'));
 });
 
-app.get('/users/:id', (req, res) => {
+app.get('/users/detail/:id', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'userDetail.html'));
 });
 
