@@ -1,7 +1,19 @@
-import Component from './Component';
+import Component from './Component.js';
 
 export default class SearchBar extends Component {
-    setup() {}
+    setup() {
+        this.state = this.props;
+        this.listener = [];
+        this.searchText = [];
+    }
+
+    subscribe(listener) {
+        this.listener.push(listener);
+    }
+
+    mounted() {
+        if (this.listener.length > 0) this.listener.forEach((f) => f(this.state.searchText));
+    }
 
     template() {
         return `
@@ -9,7 +21,9 @@ export default class SearchBar extends Component {
                 <span class="text-sm font-medium text-gray-700"> Search </span>
 
                 <div class="relative">
-                    <input type="text" id="Search" class="mt-0.5 w-full rounded border-gray-300 pe-10 shadow-sm sm:text-sm">
+                    <input type="text" id="Search" class="mt-0.5 w-full rounded border-gray-300 pe-10 shadow-sm sm:text-sm h-8 pl-2" placeholder="${
+                        this.state.placeholder
+                    }" value="${this.state.searchText || ''}">
 
                     <span class="absolute inset-y-0 right-2 grid w-8 place-content-center">
                     <button type="button" aria-label="Submit" class="rounded-full p-1.5 text-gray-700 transition-colors hover:bg-gray-100">
@@ -20,5 +34,13 @@ export default class SearchBar extends Component {
                     </span>
                 </div>
                 </label>`;
+    }
+
+    setEvent() {
+        this.addEvent('click', 'button', () => {
+            const searchText = document.querySelector('#Search').value;
+            if (!searchText) return;
+            this.setState({ searchText });
+        });
     }
 }

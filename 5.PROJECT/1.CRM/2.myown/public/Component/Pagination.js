@@ -3,14 +3,9 @@ import Component from './Component.js';
 export default class Pagination extends Component {
     setup() {
         this.state = this.props;
-        console.log(this.props);
-        this.limit = parseInt(this.props.limit);
-        console.log(this.limit);
-        console.log(this.state.count);
+        this.limit = this.props.limit;
         this.currentPage = 1;
         this.offset = 0;
-        this.totalPage = Math.ceil(parseInt(this.state.count) / this.limit);
-        console.log(this.totalPage);
         this.listener = [];
     }
 
@@ -28,7 +23,7 @@ export default class Pagination extends Component {
             if (this.currentPage > 1) this.setState((this.currentPage -= 1));
         });
         this.addEvent('click', '#nextPageBtn', () => {
-            if (this.currentPage < this.totalPage) this.setState((this.currentPage += 1));
+            if (this.currentPage < Math.ceil(this.state.count / this.limit)) this.setState((this.currentPage += 1));
         });
     }
 
@@ -50,7 +45,9 @@ export default class Pagination extends Component {
                 </button>
             </li>
 
-            <li class="text-sm/8 font-medium tracking-widest">${this.currentPage}/${this.totalPage}</li>
+            <li class="text-sm/8 font-medium tracking-widest">${this.currentPage}/${Math.ceil(
+            this.state.count / this.limit
+        )}</li>
 
             <li>
                 <button id="nextPageBtn"

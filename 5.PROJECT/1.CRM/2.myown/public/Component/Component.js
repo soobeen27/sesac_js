@@ -1,11 +1,11 @@
 export default class Component {
+    state;
     constructor(target, props) {
         this.target = target;
         this.props = props;
         this.setup();
         this.setEvent();
         this.render();
-        this.state = null;
     }
 
     setup() {}
