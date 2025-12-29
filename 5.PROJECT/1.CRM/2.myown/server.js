@@ -13,6 +13,26 @@ app.use(express.static('public'));
 app.use(express.json());
 
 app.get('/', (req, res) => {
+    res.redirect('/users');
+});
+
+app.get('/users', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'users.html'));
+});
+
+app.get('/orders', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'users.html'));
+});
+
+app.get('/orderitems', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'users.html'));
+});
+
+app.get('/items', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'users.html'));
+});
+
+app.get('/stores', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'users.html'));
 });
 

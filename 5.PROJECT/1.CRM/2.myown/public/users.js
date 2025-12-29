@@ -1,9 +1,10 @@
 import Table from './Component/Table.js';
 import Pagination from './Component/Pagination.js';
 import SearchBar from './Component/SearchBar.js';
+import Navigation from './Component/Navigation.js';
 
 let searchText = '';
-const limit = 10;
+const limit = 15;
 
 const fetchUsers = async (limit, offset, name) => {
     const queryString = `&name=${encodeURIComponent(name)}`;
@@ -28,6 +29,28 @@ const viewDidLoad = async () => {
         limit,
     });
     const searchBar = new SearchBar(document.querySelector('#search-container'), { placeholder: '이름으로 검색' });
+    const navigation = new Navigation(document.querySelector('header'), [
+        {
+            title: 'User',
+            link: '/users',
+        },
+        {
+            title: 'Order',
+            link: '/orders',
+        },
+        {
+            title: 'Order Item',
+            link: '/orderitems',
+        },
+        {
+            title: 'Item',
+            link: '/items',
+        },
+        {
+            title: 'Store',
+            link: '/stores',
+        },
+    ]);
 
     pagination.subscribe(async (limit, offset) => {
         const newData = await fetchUsers(limit, offset, searchText);
