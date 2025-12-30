@@ -1,14 +1,11 @@
 import Table from './Component/Table.js';
 import Pagination from './Component/Pagination.js';
-import SearchBar from './Component/SearchBar.js';
 import Navigation from './Component/Navigation.js';
 
-let searchText = '';
 const limit = 15;
 
-const fetchUsers = async (limit, offset, name) => {
-    const queryString = `&name=${encodeURIComponent(name)}`;
-    const res = await fetch(`/api/users?limit=${limit}&offset=${offset}&${queryString}`);
+const fetchStores = async (limit, offset) => {
+    const res = await fetch(`/api/stores?limit=${limit}&offset=${offset}`);
     const data = await res.json();
     return data;
 };
@@ -22,13 +19,12 @@ const setHlink = (data) => {
 };
 
 const viewDidLoad = async () => {
-    const data = await fetchUsers(limit, 0, '');
+    const data = await fetchStores(limit, 0);
     const table = new Table(document.querySelector('#table-container'), setHlink(data.data));
     const pagination = new Pagination(document.querySelector('#pagination-container'), {
         count: data.count,
         limit,
     });
-    const searchBar = new SearchBar(document.querySelector('#search-container'), { placeholder: '이름으로 검색' });
     const navigation = new Navigation(document.querySelector('header'), [
         {
             title: 'User',

@@ -68,35 +68,32 @@ app.get('/api/orders', (req, res) => {
     res.send({ count, data });
 });
 
-// app.get('/api/users', (req, res) => {
-//     const { limit, offset } = req.query;
-//     const name = req.query.name || '';
-//     const queryCount = db.prepare('select count(*) as count from users where name like ?');
-//     const count = queryCount.get([`%${name}%`]).count;
-//     const queryUsers = db.prepare('select * from users where name like ? limit ? offset ?');
-//     const data = queryUsers.all([`%${name}%`, limit, offset]);
-//     res.send({ count, data });
-// });
+app.get('/api/orderitems', (req, res) => {
+    const { limit, offset } = req.query;
+    const queryCount = db.prepare('select count(*) as count from orderitems');
+    const count = queryCount.get().count;
+    const queryUsers = db.prepare('select * from orderitems limit ? offset ?');
+    const data = queryUsers.all([limit, offset]);
+    res.send({ count, data });
+});
 
-// app.get('/api/users', (req, res) => {
-//     const { limit, offset } = req.query;
-//     const name = req.query.name || '';
-//     const queryCount = db.prepare('select count(*) as count from users where name like ?');
-//     const count = queryCount.get([`%${name}%`]).count;
-//     const queryUsers = db.prepare('select * from users where name like ? limit ? offset ?');
-//     const data = queryUsers.all([`%${name}%`, limit, offset]);
-//     res.send({ count, data });
-// });
+app.get('/api/items', (req, res) => {
+    const { limit, offset } = req.query;
+    const queryCount = db.prepare('select count(*) as count from items');
+    const count = queryCount.get().count;
+    const queryUsers = db.prepare('select * from items limit ? offset ?');
+    const data = queryUsers.all([limit, offset]);
+    res.send({ count, data });
+});
 
-// app.get('/api/users', (req, res) => {
-//     const { limit, offset } = req.query;
-//     const name = req.query.name || '';
-//     const queryCount = db.prepare('select count(*) as count from users where name like ?');
-//     const count = queryCount.get([`%${name}%`]).count;
-//     const queryUsers = db.prepare('select * from users where name like ? limit ? offset ?');
-//     const data = queryUsers.all([`%${name}%`, limit, offset]);
-//     res.send({ count, data });
-// });
+app.get('/api/stores', (req, res) => {
+    const { limit, offset } = req.query;
+    const queryCount = db.prepare('select count(*) as count from stores');
+    const count = queryCount.get().count;
+    const queryUsers = db.prepare('select * from stores limit ? offset ?');
+    const data = queryUsers.all([limit, offset]);
+    res.send({ count, data });
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on 127.0.0.1:${PORT}`);
