@@ -1,7 +1,7 @@
-import Table from './Component/Table.js';
-import Pagination from './Component/Pagination.js';
-import SearchBar from './Component/SearchBar.js';
-import Navigation from './Component/Navigation.js';
+import Table from './components/Table.js';
+import Pagination from './components/Pagination.js';
+import SearchBar from './components/SearchBar.js';
+import Navigation from './components/Navigation.js';
 
 let searchText = '';
 const limit = 15;

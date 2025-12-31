@@ -1,6 +1,6 @@
-import Table from './Component/Table.js';
-import Pagination from './Component/Pagination.js';
-import Navigation from './Component/Navigation.js';
+import Table from './components/Table.js';
+import Pagination from './components/Pagination.js';
+import Navigation from './components/Navigation.js';
 
 const limit = 15;
 
@@ -12,7 +12,7 @@ const fetchOrders = async (limit, offset) => {
 
 const setHlink = (data) => {
     return Array.from(data).map((row) => {
-        const hyperlinkedID = `<a href="/users/detail/${row.id}">${row.id}</a>`;
+        const hyperlinkedID = `<a href="/orders/detail/${row.id}">${row.id}</a>`;
         row.id = hyperlinkedID;
         return row;
     });
@@ -49,7 +49,7 @@ const viewDidLoad = async () => {
     ]);
 
     pagination.subscribe(async (limit, offset) => {
-        const newData = await fetchUsers(limit, offset, searchText);
+        const newData = await fetchOrders(limit, offset);
         table.setState(setHlink(newData.data));
     });
     searchBar.subscribe(async (st) => {
