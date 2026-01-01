@@ -23,7 +23,7 @@ const setHlink = (data) => {
 
 const viewDidLoad = async () => {
     const data = await fetchUsers(limit, 0, '');
-    const table = new Table(document.querySelector('#table-container'), setHlink(data.data));
+    const table = new Table(document.querySelector('#table-container'), { data: setHlink(data.data) });
     const pagination = new Pagination(document.querySelector('#pagination-container'), {
         count: data.count,
         limit,
@@ -54,7 +54,7 @@ const viewDidLoad = async () => {
 
     pagination.subscribe(async (limit, offset) => {
         const newData = await fetchUsers(limit, offset, searchText);
-        table.setState(setHlink(newData.data));
+        table.setState({ data: setHlink(newData.data) });
     });
     searchBar.subscribe(async (st) => {
         searchText = st;
