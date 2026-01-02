@@ -10,12 +10,22 @@ const fetchUserDetail = async (limit, offset) => {
     return data;
 };
 
+const setHlink = (data) => {
+    return Array.from(data).map((row) => {
+        const linkedOrderID = `<a href="/orders/detail/${row.id}">${row.id}</a>`;
+        const linkedStoreID = `<a href="/stores/detail/${row.purchasedLocation}">${row.purchasedLocation}</a>`;
+        row.id = linkedOrderID;
+        row.purchasedLocation = linkedStoreID;
+        return row;
+    });
+};
+
 const viewDidLoad = async () => {
     const data = await fetchUserDetail(limit, 0);
     const table = new Table(document.querySelector('#table-container'), { title: '유저 정보', data: [data.userData] });
     const secTable = new Table(document.querySelector('#second-table-container'), {
         title: '주문 정보',
-        data: data.orderData,
+        data: setHlink(data.orderData),
     });
     const pagination = new Pagination(document.querySelector('#pagination-container'), {
         count: data.count,
@@ -45,7 +55,7 @@ const viewDidLoad = async () => {
     ]);
     pagination.subscribe(async (limit, offset) => {
         const newData = await fetchUserDetail(limit, offset);
-        secTable.setState({ title: '주문 정보', data: newData.orderData });
+        secTable.setState({ title: '주문 정보', data: setHlink(newData.orderData) });
     });
 };
 
