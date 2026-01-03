@@ -27,9 +27,17 @@ const viewDidLoad = async () => {
         title: '주문 정보',
         data: setHlink(data.orderData),
     });
+    const thrTable = new Table(document.querySelector('#third-table-container'), {
+        title: '자주 방문한 매장',
+        data: data.mostVisitStoreData,
+    });
     const pagination = new Pagination(document.querySelector('#pagination-container'), {
         count: data.count,
         limit,
+    });
+    const fthTable = new Table(document.querySelector('#fourth-table-container'), {
+        title: '자주 주문한 상품',
+        data: data.itemOrderCountData,
     });
     const navigation = new Navigation(document.querySelector('header'), [
         {

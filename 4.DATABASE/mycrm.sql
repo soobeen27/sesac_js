@@ -60,10 +60,8 @@ select u.id, sum(i.price) as TotalPrice
 from users u
 join orders o on o.userid = u.id
 join orderitems oi on oi.orderid = o.id
-join items i on i.id = oi.itemid
-group by u.id
-order by TotalPrice desc
-limit 10;
+join items i on i.id 
+
 
 -- 99. 그 외에도, 남여 성별로, 지역별로, 등등 다양한 통계 구해보기"
 

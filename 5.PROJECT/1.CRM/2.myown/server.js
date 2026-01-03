@@ -84,9 +84,33 @@ app.get('/api/users/:id', (req, res) => {
         join stores s on o.storeid = s.id
         where u.id=?
         `);
+    const mostVisitStoreQuery = db.prepare(`
+        select s.name, count(strftime('%Y-%m-%d', o.orderat)) as visitcount
+        from users u
+        join orders o on u.id = o.userid
+        join stores s on s.id = o.storeid
+        where u.id=?
+        group by s.id
+        order by visitcount desc
+        limit 5;
+        `);
+    const itemOrderCountQuery = db.prepare(`
+        select i.name as itemName, count(i.name) as orderCount
+        from users u 
+        join orders o on u.id = o.userid
+        join stores s on o.storeid = s.id
+        join orderitems oi on oi.orderid = o.id
+        join items i on i.id = oi.itemid
+        where u.id=?
+        group by i.name
+        order by orderCount desc
+        limit 5;
+        `);
+    const itemOrderCountData = itemOrderCountQuery.all([userId]);
+    const mostVisitStoreData = mostVisitStoreQuery.all(userId);
     const orderCountData = orderCountQuery.get(userId).count;
     const orderData = orderQuery.all([userId, limit, offset]);
-    res.send({ userData, count: orderCountData, orderData });
+    res.send({ userData, count: orderCountData, orderData, mostVisitStoreData, itemOrderCountData });
 });
 
 app.get('/api/orders', (req, res) => {
@@ -147,10 +171,31 @@ app.get('/api/stores', (req, res) => {
 });
 //curl 127.0.0.1:3000/api/stores/e6f0e110-02b2-4990-915f-caecfe3b8e6f
 app.get('/api/stores/:id', (req, res) => {
-    const itemId = req.params.id;
-    const query = db.prepare('select stores.name, stores.type, stores.address from stores where id=?');
-    const data = query.get(itemId);
-    res.send(data);
+    const storeId = req.params.id;
+    const storeQuery = db.prepare('select stores.name, stores.type, stores.address from stores where id=?');
+    const monthlyRevenueQuery = db.prepare(`
+        select strftime('%Y-%m', o.orderat) AS month, sum(i.price) as revenue, count(i.price) as count
+        from stores s
+        join orders o on o.storeid = s.id
+        join orderitems oi on oi.orderid = o.id
+        join items i on oi.itemid = i.id
+        where s.id=?
+        group by month;
+        `);
+    const customerCountQuery = db.prepare(`
+        select o.userid, u.name, count(o.userid) as frequency
+        from stores s
+        join orders o on s.id = o.storeid
+        join users u on o.userid = u.id
+        where s.id=?
+        group by o.userid
+        order by frequency desc
+        limit 10;
+        `);
+    const customerCountData = customerCountQuery.all(storeId);
+    const storeData = storeQuery.get(storeId);
+    const monthlyRevenueData = monthlyRevenueQuery.all(storeId);
+    res.send({ storeData, monthlyRevenueData, customerCountData });
 });
 
 app.listen(PORT, () => {
