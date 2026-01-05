@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>List View</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="/js/pages/list.js"></script>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800">
+    <div class="container mx-auto px-4 pb-10">
+        <div class="flex justify-between items-end mb-6">
+            <h2 id="page-title" class="text-3xl font-bold text-gray-800 uppercase">Loading...</h2>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow overflow-hidden overflow-x-auto">
+            <table class="min-w-full leading-normal">
+                <thead id="table-head"></thead>
+                <tbody id="table-body"></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

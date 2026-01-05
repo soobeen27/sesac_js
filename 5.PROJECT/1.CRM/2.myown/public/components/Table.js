@@ -35,6 +35,7 @@ export default class Table extends Component {
     }
 
     _getHeader() {
+        console.log(this.state.data[0]);
         return Object.keys(this.state.data[0])
             .map((h) => {
                 return `<th class="px-3 py-2 whitespace-nowrap">${h}</th>`;

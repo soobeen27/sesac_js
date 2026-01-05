@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+        import { renderNavbar } from './js/components/navbar.js';
+        renderNavbar();
+    </script>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800">
+    <div class="container mx-auto px-4 py-20 text-center">
+        <h1 class="text-4xl font-extrabold mb-4 text-gray-900">CRM Dashboard</h1>
+        <p class="text-lg text-gray-600 mb-10">Select a table to manage your data.</p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-4xl mx-auto">
+            <a href="/list.html?table=users" class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition border border-gray-200">
+                <div class="text-3xl mb-2">👥</div>
+                <div class="font-bold uppercase text-gray-700">Users</div>
+            </a>
+            <a href="/list.html?table=stores" class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition border border-gray-200">
+                <div class="text-3xl mb-2">🏢</div>
+                <div class="font-bold uppercase text-gray-700">Stores</div>
+            </a>
+            <a href="/list.html?table=items" class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition border border-gray-200">
+                <div class="text-3xl mb-2">🛒</div>
+                <div class="font-bold uppercase text-gray-700">Items</div>
+            </a>
+            <a href="/list.html?table=orders" class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition border border-gray-200">
+                <div class="text-3xl mb-2">📄</div>
+                <div class="font-bold uppercase text-gray-700">Orders</div>
+            </a>
+             <a href="/list.html?table=orderitems" class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition border border-gray-200">
+                <div class="text-3xl mb-2">📦</div>
+                <div class="font-bold uppercase text-gray-700">Details</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

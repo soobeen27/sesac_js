@@ -61,7 +61,7 @@ const viewDidLoad = async () => {
         console.log(searchText);
         const newData = await fetchUsers(limit, 0, searchText);
         console.log(newData);
-        table.setState(setHlink(newData.data));
+        table.setState({ data: setHlink(newData.data) });
         pagination.setState({ count: newData.count });
     });
 };

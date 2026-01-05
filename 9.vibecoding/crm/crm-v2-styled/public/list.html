@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>List View</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+    <script type="module" src="/js/pages/list.js"></script>
+</head>
+<body class="bg-slate-100 font-sans text-gray-800">
+    <div class="container mx-auto px-4 pb-12">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-8 mt-4">
+            <div>
+                <h2 id="page-title" class="text-3xl font-bold text-slate-800 tracking-tight">Loading...</h2>
+                <p class="text-slate-500 mt-1">View and manage database records.</p>
+            </div>
+        </div>
+        
+        <!-- Table Container -->
+        <div class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full leading-normal">
+                    <thead id="table-head"></thead>
+                    <tbody id="table-body"></tbody>
+                </table>
+            </div>
+            <!-- Pagination Section -->
+            <div id="pagination" class="bg-white"></div>
+        </div>
+    </div>
+</body>
+</html>
