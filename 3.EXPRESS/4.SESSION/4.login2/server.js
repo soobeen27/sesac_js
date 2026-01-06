@@ -1,9 +1,18 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
+const sqlite3 = require('sqlite3').verbose();
 
 const app = express();
 const port = 3000;
+
+const db = new sqlite3.Database('users.db', (err) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log('성공');
+    }
+});
 
 // app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -19,11 +28,6 @@ app.use(
 );
 
 app.use(express.static('public'));
-
-const users = [
-    { id: 1, username: 'user1', password: 'password1' },
-    { id: 2, username: 'user2', password: 'password2' },
-];
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
@@ -42,16 +46,19 @@ app.get('/profile', (req, res) => {
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     console.log('사용자 입력값 확인', username, password);
-    const user = users.find((u) => {
-        return u.username === username && u.password === password;
+    const query = 'SELECT * FROM users WHERE username= ? AND password = ?';
+    db.get(query, [username, password], (err, row) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ message: 'server error' });
+        }
+        if (row) {
+            req.session.user = { id: row.id, username: row.username };
+            res.json({ message: '로그인 성공' });
+        } else {
+            res.status(401).json({ message: '로그인 실패' });
+        }
     });
-    console.log(user);
-    if (user) {
-        req.session.user = { id: user.id, username: user.username };
-        res.json({ message: '로그인 성공' });
-    } else {
-        res.status(401).json({ message: '로그인 실패' });
-    }
 });
 
 app.get('/check-login', (req, res) => {
