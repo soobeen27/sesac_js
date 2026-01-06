@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
+const bcrypt = require('bcrypt');
 
 const app = express();
 const port = 3000;
@@ -46,18 +47,52 @@ app.get('/profile', (req, res) => {
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     console.log('사용자 입력값 확인', username, password);
-    const query = 'SELECT * FROM users WHERE username= ? AND password = ?';
-    db.get(query, [username, password], (err, row) => {
+    const query = 'SELECT * FROM users WHERE username= ?';
+    db.get(query, [username], async (err, row) => {
         if (err) {
             console.error(err);
-            res.status(500).json({ message: 'server error' });
+            return res.status(500).json({ message: 'server error' });
         }
         if (row) {
-            req.session.user = { id: row.id, username: row.username };
-            res.json({ message: '로그인 성공' });
-        } else {
-            res.status(401).json({ message: '로그인 실패' });
+            const match = await bcrypt.compare(password, row.password);
+            if (match) {
+                req.session.user = { id: row.id, username: row.username };
+                res.json({ message: '로그인 성공' });
+            } else {
+                res.status(401).json({ message: '로그인 실패' });
+            }
         }
+    });
+});
+
+app.post('/signup', (req, res) => {
+    const { username, password } = req.body;
+    console.log('사용자 입력값 확인', username, password);
+    const duplicateCheckQuery = 'SELECT * FROM users WHERE username= ?';
+    db.get(duplicateCheckQuery, [username], (err, row) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: '회원가입 실패' });
+        }
+        if (row) {
+            return res.status(409).json({ message: '이미 존재하는 사용자' });
+        }
+
+        const saltRounds = 10;
+        bcrypt.hash(password, saltRounds, (err, hash) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ message: '회원가입 실패' });
+            }
+            const query = 'INSERT INTO users (username, password) VALUES (?, ?)';
+            db.run(query, [username, hash], (err) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({ message: '회원가입 실패' });
+                }
+                res.json({ message: '회원가입 성공' });
+            });
+        });
     });
 });
 
@@ -75,6 +110,18 @@ app.get('/logout', (req, res) => {
             return res.status(500).json({ message: '로그아웃 실패' });
         }
         res.json({ message: '로그아웃 성공' });
+    });
+});
+
+app.delete('/delete-account', (req, res) => {
+    const { username } = req.body;
+    const query = 'DELETE FROM users WHERE username = ?';
+    db.run(query, [username], (err) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: '회원탈퇴 실패' });
+        }
+        res.json({ message: '회원탈퇴 성공' });
     });
 });
 

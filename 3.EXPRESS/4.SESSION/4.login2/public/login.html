@@ -44,20 +44,33 @@
 
         <div id="loginFormContainer" style="display: none">
             <h2>Login</h2>
-            <form action="/login" method="post">
-                <label for="username">username</label>
-                <input type="text" name="username" id="username" />
-                <br />
-                <label for="password">password</label>
-                <input type="password" name="password" id="password" />
-                <br />
-                <input type="submit" id="login-button" value="login" />
-            </form>
-            <script src="login.js"></script>
+            <label for="username">username</label>
+            <input type="text" id="username" />
+            <br />
+            <label for="password">password</label>
+            <input type="password" id="password" />
+            <br />
+            <button id="login-button">login</button>
+            <button id="show-signup-button">signup</button>
+        </div>
+        <div id="signupFormContainer" style="display: none">
+            <h2>Sign Up</h2>
+            <label for="signup-username">username</label>
+            <input type="text" id="signup-username" />
+            <br />
+            <label for="password">password</label>
+            <input type="password" id="signup-password" />
+            <br />
+            <label for="password">password check</label>
+            <input type="password" id="signup-password-check" />
+            <br />
+            <button id="signup-button">signup</button>
         </div>
         <div id="profile" style="display: none">
             <h2>안녕하세요 <span id="usernameSpan"></span></h2>
             <button id="logout-button">로그아웃</button>
+            <button id="delete-button">회원탈퇴</button>
         </div>
+        <script src="login.js"></script>
     </body>
 </html>
