@@ -2,10 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
     checkLoginStatus();
     document.getElementById('login-button').addEventListener('click', login);
     document.getElementById('logout-button').addEventListener('click', logout);
-    document.getElementById('show-signup-button').addEventListener('click', showSignupForm);
+    document.getElementById('show-signup-button').addEventListener('click', () => {
+        show(ELEMENT_KEYS.SIGNUP);
+    });
     document.getElementById('signup-button').addEventListener('click', signup);
     document.getElementById('delete-button').addEventListener('click', deleteAccount);
 });
+
+const ELEMENT_KEYS = {
+    LOGIN: 'loginFormContainer',
+    SIGNUP: 'signupFormContainer',
+    PROFILE: 'profile',
+};
 
 const elements = {
     loginFormContainer: document.getElementById('loginFormContainer'),
@@ -18,7 +26,7 @@ function logout(e) {
         .then((res) => res.json())
         .then((data) => {
             if (data.message === '로그아웃 성공') {
-                showLoginForm();
+                show(ELEMENT_KEYS.LOGIN);
             } else {
                 alert(data.message);
             }
@@ -32,7 +40,7 @@ function checkLoginStatus() {
             if (data.username) {
                 showProfile(data.username);
             } else {
-                showLoginForm();
+                show(ELEMENT_KEYS.LOGIN);
             }
         });
 }
@@ -102,30 +110,20 @@ function deleteAccount(e) {
         .then((res) => res.json())
         .then((data) => {
             if (data.message == '회원탈퇴 성공') {
-                showLoginForm();
+                show(ELEMENT_KEYS.LOGIN);
             } else {
                 alert(data.message);
             }
         });
 }
 
+function show(key) {
+    Object.keys(elements).forEach((k) => {
+        elements[k].style.display = k === key ? 'block' : 'none';
+    });
+}
+
 function showProfile(username) {
-    Object.keys(elements).forEach((key) => {
-        elements[key].style.display = key === 'profile' ? 'block' : 'none';
-    });
+    show(ELEMENT_KEYS.PROFILE);
     document.getElementById('usernameSpan').innerText = username;
-}
-
-function showLoginForm() {
-    Object.keys(elements).forEach((key) => {
-        elements[key].style.display = key === 'loginFormContainer' ? 'block' : 'none';
-    });
-}
-
-function showSignupForm(e) {
-    e.preventDefault();
-
-    Object.keys(elements).forEach((key) => {
-        elements[key].style.display = key === 'signupFormContainer' ? 'block' : 'none';
-    });
 }
