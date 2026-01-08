@@ -1,0 +1,8 @@
+.message {
+    background-color: gray;
+    color: purple;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+}
