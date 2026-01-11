@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { fetchPosts } from '../api/postsApi';
+import { Link } from 'react-router-dom';
 import Pagination from '../components/Pagination';
 
 const ITEM_PER_PAGE = 20;
@@ -41,7 +42,9 @@ export default function Posts() {
       <h1>Posts</h1>
       <ul>
         {showedPosts.map((p) => (
-          <li key={p.id}>{p.title}</li>
+          <li key={p.id}>
+            <Link to={`/posts/${p.id}`}>{p.title}</Link>
+          </li>
         ))}
       </ul>
       <Pagination itemPerPage={ITEM_PER_PAGE} totalItemCount={posts.length} onNext={next} onPrev={prev} />

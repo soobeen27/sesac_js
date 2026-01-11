@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import TodoSummary from './components/TodoSummary';
@@ -9,6 +9,12 @@ export default function TodoApp() {
     { id: 1, text: 'react study', done: false },
     { id: 2, text: 'vite study', done: false },
   ]);
+
+  const [displayTodos, setDisplayTodos] = useState([]);
+
+  useEffect(() => {
+    setDisplayTodos(todos);
+  }, [todos]);
 
   const [text, setText] = useState('');
 
@@ -35,7 +41,13 @@ export default function TodoApp() {
   }
 
   function hideDoneTodoToggle(flag) {
-    console.log(flag);
+    if (!flag) {
+      setDisplayTodos(todos);
+      return;
+    }
+    setDisplayTodos((p) => {
+      return p.filter((t) => !t.done);
+    });
   }
 
   return (
@@ -44,7 +56,7 @@ export default function TodoApp() {
       <TodoSummary all={todos.length || 0} done={todos.filter((t) => t.done).length || 0} />
       <TodoForm setText={setText} onAdd={addTodo} text={text} />
       <HideDoneTodoToggle onCheck={hideDoneTodoToggle} />
-      <TodoList todos={todos} onToggle={toggleTodo} onRemove={deleteTodo} />
+      <TodoList todos={displayTodos} onToggle={toggleTodo} onRemove={deleteTodo} />
     </div>
   );
 }

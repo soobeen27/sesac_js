@@ -9,3 +9,11 @@ async function get(url, { signal } = {}) {
 export function fetchPosts({ signal } = {}) {
   return get(`${BASE_URL}/posts`, { signal });
 }
+
+export function fetchPostById(postId, { signal } = {}) {
+  return get(`${BASE_URL}/posts/${postId}`, { signal });
+}
+
+export function fetchCommentsById(postId, { signal } = {}) {
+  return get(`${BASE_URL}/posts/${postId}/comments`, { signal });
+}

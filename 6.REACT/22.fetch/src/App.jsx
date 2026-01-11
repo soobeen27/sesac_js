@@ -7,6 +7,7 @@ import Posts from './pages/Posts.jsx';
 import About from './pages/About.jsx';
 import NotFound from './pages/NotFound.jsx';
 import UserDetail from './pages/UserDetail.jsx';
+import PostDetail from './pages/PostDetail.jsx';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path=":userId" element={<UserDetail />} />
           </Route> */}
           <Route path="posts" element={<Posts />} />
+          <Route path="posts/:postId" element={<PostDetail />} />
           <Route path="about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Route>
