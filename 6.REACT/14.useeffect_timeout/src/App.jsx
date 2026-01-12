@@ -9,7 +9,6 @@ function App() {
   useEffect(() => {
     if (!keyword) {
       setUsers([]);
-      1;
       return;
     }
     const timer = setTimeout(() => {
